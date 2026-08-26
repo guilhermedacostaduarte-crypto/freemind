@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Terms of Service – Free Mind Protocol</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Terms of Service for Free Mind Protocol" />
+  <style>
+    :root {
+      --bg: #050505; --surface: #121212; --accent: #ff4713;
+      --text: #f5f5f5; --text-muted: #a0a0a0; --border: #222;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+    header {
+      display: flex; justify-content: center; padding: 24px 0;
+      border-bottom: 1px solid var(--border); margin-bottom: 40px;
+    }
+    .logo { font-weight: 800; font-size: 1.2rem; text-transform: uppercase; }
+    .logo span { color: var(--accent); }
+    h1 { font-size: 2rem; margin-bottom: 8px; }
+    .updated { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 40px; }
+    h2 { font-size: 1.3rem; margin: 32px 0 12px; color: #fff; }
+    p { color: var(--text-muted); margin-bottom: 16px; }
+    ul { color: var(--text-muted); margin: 0 0 16px 20px; }
+    li { margin-bottom: 8px; }
+    strong { color: #fff; }
+    .back-link { display: inline-block; margin-bottom: 40px; color: var(--accent); }
+    blockquote {
+      border-left: 3px solid var(--accent); padding: 12px 20px;
+      margin: 16px 0; background: var(--surface); border-radius: 8px;
+    }
+    blockquote p { margin: 0; color: var(--text-muted); }
+    footer {
+      text-align: center; padding: 40px 0; border-top: 1px solid var(--border);
+      color: var(--text-muted); font-size: 0.85rem; margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+  <header><div class="logo">Free Mind <span>Protocol</span></div></header>
+  <main class="container">
+    <a href="index.html" class="back-link">← Back to Home</a>
+    <h1>Terms of Service</h1>
+    <p class="updated">Last updated: August 26, 2026</p>
+
+    <h2>Acceptance of Terms</h2>
+    <p>By accessing and using <strong>freemindprotocol.com</strong> and purchasing any products offered by Free Mind Protocol, you agree to be bound by these Terms of Service. If you do not agree, please do not use our Site or purchase our products.</p>
+
+    <h2>Products and Services</h2>
+    <p>Free Mind Protocol sells a digital product — an eBook in PDF format titled "The 30-Day Dopamine Reboot." Upon successful payment, you will receive immediate access to download the Product.</p>
+
+    <h2>Digital Product Disclaimer</h2>
+    <blockquote>
+      <p><strong>Medical Disclaimer:</strong> This Product is for educational purposes only. It is <strong>NOT</strong> a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare professional regarding mental health concerns or addiction recovery.</p>
+    </blockquote>
+
+    <h2>License and Usage</h2>
+    <p>Upon purchase, you are granted a <strong>personal, non-exclusive, non-transferable license</strong> to download and read the Product for your personal use.</p>
+    <p>You are <strong>NOT</strong> permitted to:</p>
+    <ul>
+      <li>Copy, reproduce, distribute, or share the Product with others</li>
+      <li>Resell, sublicense, or commercialize the Product</li>
+      <li>Modify, adapt, or create derivative works</li>
+      <li>Remove any copyright or proprietary notices</li>
+    </ul>
+
+    <h2>Intellectual Property</h2>
+    <p>All content is the exclusive property of Free Mind Protocol and is protected by <strong>United States and international copyright laws</strong>. All rights reserved.</p>
+
+    <h2>Pricing and Payment</h2>
+    <ul>
+      <li>Current price: <strong>$19.90 USD</strong></li>
+      <li>All payments processed securely by <strong>Stripe, Inc.</strong></li>
+      <li>Prices subject to change without notice</li>
+    </ul>
+
+    <h2>Refunds</h2>
+    <p>Refunds are governed by our separate Refund Policy, which provides a 7-day money-back guarantee.</p>
+
+    <h2>Limitation of Liability</h2>
+    <p>To the maximum extent permitted by law, Free Mind Protocol shall not be liable for any indirect, incidental, special, consequential, or punitive damages. Our total liability for any claim shall not exceed the amount paid for the Product (<strong>$19.90</strong>). We do not guarantee specific results.</p>
+
+    <h2>Disclaimer of Warranties</h2>
+    <p>The Product and Site are provided "AS IS" and "AS AVAILABLE" without warranties of any kind. We do not warrant that the Product will produce any specific result.</p>
+
+    <h2>Governing Law</h2>
+    <p>These Terms shall be governed by the laws of the United States. Any disputes shall be resolved in the appropriate courts.</p>
+
+    <h2>Changes to Terms</h2>
+    <p>We may update these Terms at any time. Updated Terms will be posted on this page with a revised date.</p>
+
+    <h2>Contact</h2>
+    <p>For questions about these Terms, contact: <a href="mailto:protocolfreemind@gmail.com">protocolfreemind@gmail.com</a></p>
+  </main>
+  <footer>
+    <div class="container">
+      <p>© <span id="year"></span> Free Mind Protocol. All rights reserved.</p>
+    </div>
+  </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
