@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carousel — Free Mind Protocol (Time Reclaim · Facebook Ads)</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:#0A0E27; color:#E8EAF6;
+    font-family:'Segoe UI', Arial, Helvetica, sans-serif;
+    min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:20px;
+  }
+  .brand {
+    font-size:.72rem; letter-spacing:.22em; color:#7C86AC;
+    text-transform:uppercase; margin-bottom:16px; text-align:center;
+  }
+  .stage { width:min(92vw, 560px); }
+  .card {
+    width:100%; aspect-ratio:1/1; border-radius:14px; border:1px solid #232B4D;
+    background:radial-gradient(120% 120% at 50% 0%, #131A3D 0%, #0A0E27 70%);
+    box-shadow:0 20px 60px rgba(0,0,0,.55);
+    display:none; flex-direction:column; align-items:center; justify-content:center;
+    padding:6%; text-align:center; position:relative; overflow:hidden;
+  }
+  .card.active { display:flex; animation:fade .35s ease; }
+  @keyframes fade { from { opacity:0; transform:scale(.98);} to { opacity:1; transform:scale(1);} }
+  .visual { width:62%; height:auto; margin-bottom:16px; }
+  h2 {
+    font-size:clamp(1.25rem, 4.7vw, 1.9rem); line-height:1.24; font-weight:800;
+    letter-spacing:-0.02em; margin-bottom:12px; max-width:96%;
+  }
+  p { font-family:Georgia, serif; font-size:clamp(.88rem, 2.9vw, 1.08rem); line-height:1.6; color:#B0B8D4; max-width:94%; }
+  .sub {
+    font-family:Georgia, serif; font-style:italic; color:#00D9FF;
+    font-size:clamp(.82rem, 2.7vw, .96rem); margin-top:12px; max-width:92%; line-height:1.5;
+  }
+  .cta-btn {
+    display:inline-block; background:#00D9FF; color:#0A0E27; font-weight:800;
+    font-size:clamp(1rem, 3.3vw, 1.15rem); padding:14px 34px; border-radius:6px;
+    text-decoration:none; margin-top:16px; letter-spacing:.01em;
+  }
+  nav { display:flex; align-items:center; gap:18px; margin-top:22px; }
+  .navbtn {
+    background:#131A3D; border:1px solid #2A3158; color:#E8EAF6;
+    width:48px; height:48px; border-radius:50%; font-size:1.25rem; cursor:pointer;
+    transition:border-color .2s, background .2s;
+  }
+  .navbtn:hover { border-color:#00D9FF; background:#1A2350; }
+  .counter { font-size:.82rem; letter-spacing:.16em; color:#7C86AC; text-transform:uppercase; min-width:118px; text-align:center; }
+  .dots { display:flex; gap:8px; margin-top:14px; }
+  .dot { width:9px; height:9px; border-radius:50%; background:#2A3158; cursor:pointer; border:none; padding:0; }
+  .dot.active { background:#00D9FF; }
+</style>
+</head>
+<body>
+
+<div class="brand">Free Mind Protocol — · Time Reclaim</div>
+
+<div class="stage">
+
+  <!-- CARD 1 — HOOK (TEMPO) -->
+  <div class="card active" data-title="Card 1 of 7">
+    <svg class="visual" viewBox="0 0 300 150"><circle cx="150" cy="80" r="56" fill="#111839" stroke="#2A3158" stroke-width="3"/><circle cx="150" cy="80" r="3.5" fill="#00D9FF"/><path d="M150 80 L 150 44" stroke="#E8EAF6" stroke-width="4" stroke-linecap="round"/><path d="M150 80 L 178 92" stroke="#00D9FF" stroke-width="4" stroke-linecap="round"/><text x="116" y="150" text-anchor="middle" font-size="26" font-weight="800" fill="#E8EAF6" opacity="0.9">hrs</text><text x="166" y="150" text-anchor="middle" font-size="17" font-weight="700" fill="#E8EAF6" opacity="0.4">hrs</text><text x="200" y="150" text-anchor="middle" font-size="10" font-weight="600" fill="#E8EAF6" opacity="0.15">hrs</text><circle cx="150" cy="80" r="46" fill="none" stroke="#00D9FF" stroke-width="1" opacity="0.15" stroke-dasharray="3 5"/></svg>
+    <h2>How many hours of your day do you lose to screens — and feel worse for it?</h2>
+  </div>
+
+  <!-- CARD 2 — ONDE O TEMPO VAI + CREDIBILIDADE -->
+  <div class="card" data-title="Card 2 of 7">
+    <svg class="visual" viewBox="0 0 300 150"><g><rect x="20" y="22" width="56" height="56" rx="14" fill="#131A3D" stroke="#2A3158"/><path d="M38 30 v40 M38 30 l24 20 l-24 20 z" fill="none" stroke="#00D9FF" stroke-width="3" stroke-linejoin="round" transform="translate(-6,0)"/><rect x="92" y="22" width="56" height="56" rx="14" fill="#131A3D" stroke="#2A3158"/><path d="M106 78 v-34 M106 78 l18 -12 v24 z M120 44 l-8 4 v20 l8 -4 z" fill="none" stroke="#E8EAF6" stroke-width="2.5" stroke-linejoin="round" transform="translate(10,-2)"/><rect x="164" y="22" width="56" height="56" rx="14" fill="#131A3D" stroke="#2A3158"/><path d="M192 30 v40" stroke="#E8EAF6" stroke-width="3"/><circle cx="192" cy="38" r="6" fill="none" stroke="#00D9FF" stroke-width="2.5"/><rect x="236" y="22" width="56" height="56" rx="14" fill="#131A3D" stroke="#2A3158"/><rect x="252" y="34" width="24" height="24" rx="4" fill="none" stroke="#E8EAF6" stroke-width="2.5"/><circle cx="270" cy="60" r="7" fill="#00D9FF"/><text x="150" y="116" text-anchor="middle" font-size="15" font-weight="800" fill="#E8EAF6">Instagram · TikTok · YouTube</text><text x="150" y="138" text-anchor="middle" font-size="12.5" fill="#7C86AC">+ adult sites · betting apps</text></svg>
+    <h2>Instagram. TikTok. YouTube. One more &ldquo;quick&rdquo; scroll.</h2>
+    <p>Nobody plans to lose 4+ hours a day to apps engineered to hold you. It just&hellip; disappears. A 10-minute break becomes 2 hours. &ldquo;One more video&rdquo; becomes 2 AM. Adult sites. Betting apps. Tabs you swear you&rsquo;ll close &mdash; and never do.</p>
+    <p class="sub">I know. I gave 10 years to autopilot before I took them back.</p>
+  </div>
+
+  <!-- CARD 3 — A DOR POR TRÁS DO TEMPO -->
+  <div class="card" data-title="Card 3 of 7">
+    <svg class="visual" viewBox="0 0 300 150"><rect width="300" height="150" fill="#070B1E"/><text x="222" y="40" text-anchor="middle" font-size="15" font-weight="700" fill="#7C86AC">2:00 AM</text><rect x="212" y="52" width="56" height="38" rx="4" fill="#0E1433" stroke="#1E2852"/><rect x="234" y="46" width="12" height="14" rx="2" fill="#0E1433" stroke="#1E2852"/><circle cx="240" cy="71" r="7" fill="#3A4579"/><rect x="36" y="118" width="190" height="7" rx="3.5" fill="#1E2852"/><circle cx="104" cy="92" r="15" fill="#1E2852"/><path d="M85 146 Q 85 118 104 112 Q 123 118 123 146 Z" fill="#1E2852"/><rect x="106" y="104" width="24" height="36" rx="4" fill="#00D9FF" opacity="0.35"/><rect x="109.5" y="107.5" width="17" height="29" rx="2" fill="#0A0E27"/><ellipse cx="142" cy="118" rx="30" ry="22" fill="#00D9FF" opacity="0.07"/></svg>
+    <h2>The scary part isn&rsquo;t the hours.</h2>
+    <p>It&rsquo;s what the hours take with them. The focus that&rsquo;s gone. The hobbies you abandoned. The version of you that never got built &mdash; because the feed was always there. Waking up tired of yourself.</p>
+    <p class="sub">Then promising &ldquo;never again&rdquo; &mdash; and doing it again at 2 AM. That&rsquo;s the loop. Not weakness. A loop.</p>
+  </div>
+
+  <!-- CARD 4 — A VERDADE -->
+  <div class="card" data-title="Card 4 of 7">
+    <svg class="visual" viewBox="0 0 300 150"><path d="M150 28 C 108 20, 82 45, 86 80 C 78 112, 110 130, 150 122 C 190 130, 222 112, 214 80 C 218 45, 192 20, 150 28 Z" fill="#111839" stroke="#2A3158" stroke-width="2"/><path d="M150 28 C 140 55, 140 95, 150 122" stroke="#2A3158" stroke-width="2" fill="none"/><path d="M110 49 C 123 63, 123 92, 110 107" stroke="#2A3158" stroke-width="1.5" fill="none"/><path d="M190 49 C 177 63, 177 92, 190 107" stroke="#2A3158" stroke-width="1.5" fill="none"/><g transform="translate(132,66)"><circle cx="18" cy="18" r="17" fill="#00D9FF" opacity="0.12"/><path d="M18 6 l10 14 h-6 v8 h-8 v-8 h-6 z" fill="#00D9FF" opacity="0.9"/></g><path d="M60 134 C 100 118, 200 118, 240 134" stroke="#1E2852" stroke-width="2" fill="none" stroke-dasharray="4 6"/></svg>
+    <h2>Here&rsquo;s what nobody tells you.</h2>
+    <p>You don&rsquo;t have a discipline problem. You&rsquo;re up against apps built by thousands of engineers &mdash; engineered to capture your attention &mdash; and a brain never designed for infinite novelty. Willpower loses to that every time. It was never a fair fight.</p>
+  </div>
+
+  <!-- CARD 5 — A ESPERANÇA (O TEMPO PODE VOLTAR) -->
+  <div class="card" data-title="Card 5 of 7">
+    <svg class="visual" viewBox="0 0 300 150"><defs><linearGradient id="sand" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00D9FF" stop-opacity="0.95"/><stop offset="100%" stop-color="#00D9FF" stop-opacity="0.5"/></linearGradient></defs><path d="M118 18 L 182 18 L 196 40 L 182 62 L 118 62 L 104 40 Z" fill="none" stroke="#2A3158" stroke-width="2.5"/><path d="M118 62 L 182 62 L 196 132 L 182 154 L 118 154 L 104 132 Z" fill="none" stroke="#2A3158" stroke-width="2.5"/><circle cx="150" cy="40" r="3" fill="#00D9FF"/><rect x="146" y="74" width="8" height="4" rx="2" fill="#00D9FF" opacity="0.8"/><rect x="143" y="82" width="14" height="4" rx="2" fill="#00D9FF" opacity="0.6"/><rect x="140" y="90" width="20" height="4" rx="2" fill="#00D9FF" opacity="0.4"/><path d="M196 66 C 220 80, 220 120, 196 138" stroke="none" fill="none"/><ellipse cx="150" cy="122" rx="26" ry="8" fill="url(#sand)" opacity="0.5"/><text x="150" y="140" text-anchor="middle" font-size="11" font-weight="700" fill="#7C86AC">hour by hour</text><circle cx="222" cy="70" r="22" fill="#00D9FF" opacity="0.06"/></svg>
+    <h2>Your time isn&rsquo;t gone. It&rsquo;s trapped.</h2>
+    <p>Every hour you reclaim is yours again. Focus is trainable. Attention comes back. Real life starts feeling real again. Not through &ldquo;digital detox&rdquo; perfection &mdash; through a system that rebuilds your brain&rsquo;s ability to choose.</p>
+  </div>
+
+  <!-- CARD 6 — A CONTA DO TEMPO -->
+  <div class="card" data-title="Card 6 of 7">
+    <svg class="visual" viewBox="0 0 300 160"><rect x="16" y="16" width="124" height="52" rx="8" fill="#2A1020" stroke="#FF5A5F" stroke-opacity="0.5"/><text x="78" y="36" text-anchor="middle" font-size="11" font-weight="800" fill="#FF5A5F">LOST</text><text x="78" y="56" text-anchor="middle" font-size="15" font-weight="800" fill="#E8EAF6">60 days / year</text><rect x="160" y="16" width="124" height="52" rx="8" fill="#0E2433" stroke="#00D9FF" stroke-opacity="0.6"/><text x="222" y="36" text-anchor="middle" font-size="11" font-weight="800" fill="#00D9FF">THE RESET</text><text x="222" y="56" text-anchor="middle" font-size="15" font-weight="800" fill="#E8EAF6">30 days. Once.</text><text x="150" y="94" text-anchor="middle" font-size="11" fill="#7C86AC">&mdash;&mdash;&mdash;&mdash; every year after is yours &mdash;&mdash;&mdash;&mdash;</text><text x="78" y="122" text-anchor="middle" font-size="10" fill="#FF5A5F" opacity="0.85">4+ hrs/day · autopilot</text><text x="222" y="122" text-anchor="middle" font-size="10" fill="#00D9FF" opacity="0.85">to break the loop</text><text x="150" y="148" text-anchor="middle" font-size="10.5" font-weight="700" fill="#B0B8D4">2 months gone — every single year</text></svg>
+    <h2>4 hours a day = 60 full days a year.</h2>
+    <p>You&rsquo;d never throw away 2 months of your life on purpose. But autopilot already does &mdash; every single year. The system that breaks the loop? 30 days. One month, to take every year after back.</p>
+    <p class="sub">60 days lost every year &mdash; vs 30 days to get them back. That&rsquo;s the trade.</p>
+  </div>
+
+  <!-- CARD 7 — CTA -->
+  <div class="card" data-title="Card 7 of 7">
+    <svg class="visual" viewBox="0 0 300 160"><defs><radialGradient id="glowT" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#00D9FF" stop-opacity="0.4"/><stop offset="100%" stop-color="#00D9FF" stop-opacity="0"/></radialGradient></defs><circle cx="112" cy="76" r="64" fill="url(#glowT)"/><path d="M82 30 L 142 30 L 152 44 L 142 58 L 82 58 L 72 44 Z" fill="none" stroke="#2A3158" stroke-width="2"/><path d="M82 58 L 142 58 L 152 122 L 142 136 L 82 136 L 72 122 Z" fill="none" stroke="#2A3158" stroke-width="2"/><rect x="108" y="72" width="8" height="5" rx="2" fill="#00D9FF"/><rect x="104" y="82" width="16" height="5" rx="2" fill="#00D9FF" opacity="0.75"/><rect x="100" y="92" width="24" height="5" rx="2" fill="#00D9FF" opacity="0.5"/><path d="M150 44 L 150 122" stroke="#2A3158" stroke-width="1.5" fill="none"/><circle cx="112" cy="44" r="3" fill="#00D9FF"/><circle cx="112" cy="136" r="3" fill="#00D9FF" opacity="0.5"/><text x="112" y="152" text-anchor="middle" font-size="9" fill="#7C86AC">your time</text><path d="M212 84 L 254 84 M 238 70 L 254 84 L 238 98" stroke="#00D9FF" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><text x="232" y="120" text-anchor="middle" font-size="9" font-weight="700" fill="#7C86AC">back</text></svg>
+    <h2>I wrote the whole system down.</h2>
+    <p>The exact 30-day structure I used to reclaim my attention &mdash; every technique, every mistake, every day. No subscription. No app. Just the system that gave me my time back.</p>
+    <a class="cta-btn" href="https://freemindprotocol.com" target="_blank" rel="noopener">Reclaim your time &rarr;</a>
+  </div>
+
+</div>
+
+<nav>
+  <button class="navbtn" onclick="prevCard()">&larr;</button>
+  <div class="counter" id="counter">Card 1 of 7</div>
+  <button class="navbtn" onclick="nextCard()">&rarr;</button>
+</nav>
+
+<div class="dots" id="dots"></div>
+
+<script>
+  var cards = document.querySelectorAll('.card');
+  var current = 0;
+  var dotsBox = document.getElementById('dots');
+
+  for (var i = 0; i < cards.length; i++) {
+    var d = document.createElement('button');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('onclick', 'goCard(' + i + ')');
+    dotsBox.appendChild(d);
+  }
+  var dots = dotsBox.children;
+
+  function goCard(n) {
+    cards[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = n;
+    cards[current].classList.add('active');
+    dots[current].classList.add('active');
+    document.getElementById('counter').textContent = cards[current].getAttribute('data-title');
+  }
+  function nextCard() { goCard((current + 1) % cards.length); }
+  function prevCard() { goCard((current - 1 + cards.length) % cards.length); }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight') nextCard();
+    if (e.key === 'ArrowLeft') prevCard();
+  });
+</script>
+
+</body>
+</html>
