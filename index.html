@@ -1,1000 +1,628 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Free Mind Protocol – Reclaim Your Brain in 30 Days</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="A science-based 30-day protocol to reset your dopamine system, break free from digital addiction, and reclaim your focus, energy, and motivation." />
-  <style>
-    :root {
-      --bg: #050505;
-      --surface: #121212;
-      --surface-light: #1a1a1a;
-      --accent: #ff4713;
-      --accent-hover: #ff6035;
-      --accent-glow: rgba(255, 71, 19, 0.3);
-      --text: #f5f5f5;
-      --text-muted: #a0a0a0;
-      --text-dim: #707070;
-      --danger: #ff3b3b;
-      --success: #00e676;
-      --border: #222;
-      --border-light: #333;
-      --radius: 12px;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-    a { text-decoration: none; color: inherit; }
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-    .container-wide {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>The Dopamine Epidemic — Free Mind Protocol</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    background: #0A0E27;
+    color: #E8EAF6;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
 
-    /* HEADER */
-    header {
-      display: flex;
-      justify-content: center;
-      padding: 24px 0;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 20px;
-      position: sticky;
-      top: 0;
-      background: rgba(5, 5, 5, 0.95);
-      backdrop-filter: blur(10px);
-      z-index: 100;
-    }
-    .logo {
-      font-weight: 800;
-      font-size: 1.2rem;
-      letter-spacing: -0.5px;
-      text-transform: uppercase;
-    }
-    .logo span { color: var(--accent); }
+  /* Minimalist Header */
+  .brand {
+    font-size: clamp(0.75rem, 2vw, 0.85rem);
+    letter-spacing: 0.2em; 
+    color: #7C86AC;
+    text-transform: uppercase; 
+    text-align: center;
+    padding: 20px;
+    background: rgba(10, 14, 39, 0.95);
+    border-bottom: 1px solid #232B4D;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
 
-    /* HERO */
-    .hero {
-      text-align: center;
-      padding: 40px 0 60px;
-    }
-    .hero-label {
-      display: inline-block;
-      background: rgba(255, 71, 19, 0.1);
-      color: var(--accent);
-      padding: 6px 14px;
-      border-radius: 100px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 24px;
-    }
-    .hero h1 {
-      font-size: clamp(2.2rem, 5vw, 3.8rem);
-      line-height: 1.1;
-      font-weight: 800;
-      letter-spacing: -1px;
-      margin-bottom: 20px;
-    }
-    .hero h1 span { color: var(--accent); }
-    .hero .subheadline {
-      font-size: clamp(1.05rem, 2vw, 1.25rem);
-      color: var(--text-muted);
-      max-width: 620px;
-      margin: 0 auto 40px;
-    }
+  .brand span { color: #00D9FF; font-weight: 800; }
 
-    /* HERO IMAGE PLACEHOLDER */
-    .hero-image {
-      max-width: 400px;
-      margin: 0 auto 40px;
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
-    .hero-image img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    .image-placeholder {
-      background: var(--surface);
-      border: 2px dashed var(--border-light);
-      border-radius: var(--radius);
-      min-height: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-dim);
-      font-size: 0.85rem;
-      text-align: center;
-      padding: 20px;
-    }
+  /* Main Container */
+  main {
+    width: 100%;
+    max-width: 740px;
+    margin: 30px auto;
+    padding: 0 20px 120px 20px; 
+  }
 
-    /* SYMPTOMS BOX */
-    .symptoms-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 30px;
-      max-width: 700px;
-      margin: 0 auto 40px;
-      text-align: left;
-    }
-    .symptoms-box h3 {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
-      text-align: center;
-      color: #fff;
-    }
-    .symptom-list { list-style: none; }
-    .symptom-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      font-size: 1.05rem;
-      margin-bottom: 16px;
-      color: var(--text-muted);
-    }
-    .symptom-list li:last-child { margin-bottom: 0; }
-    .symptom-list .icon-x {
-      color: var(--danger);
-      font-weight: bold;
-      font-size: 1.1rem;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
+  /* Typography */
+  h1 {
+    font-size: clamp(1.8rem, 6vw, 3.2rem);
+    line-height: 1.15;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    color: #FFFFFF;
+  }
 
-    /* CTA BUTTONS */
-    .cta-wrapper {
-      text-align: center;
-      margin-bottom: 60px;
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--accent);
-      color: #fff;
-      font-size: 1.2rem;
-      font-weight: 700;
-      padding: 18px 40px;
-      border-radius: 100px;
-      transition: all 0.2s;
-      box-shadow: 0 10px 25px var(--accent-glow);
-      border: none;
-      cursor: pointer;
-    }
-    .btn:hover {
-      background: var(--accent-hover);
-      transform: translateY(-2px);
-      box-shadow: 0 15px 35px rgba(255, 71, 19, 0.4);
-    }
-    .price-tag {
-      display: block;
-      margin-top: 12px;
-      font-size: 0.95rem;
-      color: var(--text-muted);
-    }
-    .price-tag strong { color: #fff; }
+  h2 {
+    font-size: clamp(1.3rem, 5vw, 1.8rem);
+    line-height: 1.3;
+    font-weight: 700;
+    margin: 40px 0 20px 0;
+    color: #00D9FF;
+  }
 
-    /* SECTION TITLES */
-    .section-title {
-      text-align: center;
-      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
-      font-weight: 800;
-      margin-bottom: 16px;
-      letter-spacing: -0.5px;
-    }
-    .section-subtitle {
-      text-align: center;
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      max-width: 600px;
-      margin: 0 auto 40px;
-    }
+  p {
+    font-family: Georgia, serif;
+    font-size: clamp(1rem, 4vw, 1.15rem);
+    line-height: 1.8;
+    color: #B0B8D4;
+    margin-bottom: 24px;
+  }
 
-    /* WHAT'S INSIDE */
-    .whats-inside {
-      padding: 60px 0;
-      border-top: 1px solid var(--border);
-    }
-    .product-format {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      margin-bottom: 50px;
-    }
-    .format-badge {
-      background: var(--surface);
-      border: 1px solid var(--border-light);
-      border-radius: 8px;
-      padding: 12px 20px;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-    .format-badge strong { color: var(--accent); }
+  .author-date {
+    font-size: 0.85rem;
+    color: #7C86AC;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #232B4D;
+  }
 
-    .module {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 30px;
-      margin-bottom: 20px;
-    }
-    .module-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-    .module-number {
-      background: var(--accent);
-      color: #fff;
-      font-weight: 800;
-      font-size: 0.85rem;
-      padding: 4px 10px;
-      border-radius: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .module-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #fff;
-    }
-    .chapter-list {
-      list-style: none;
-      padding-left: 0;
-    }
-    .chapter-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 8px 0;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      border-bottom: 1px solid rgba(255,255,255,0.03);
-    }
-    .chapter-list li:last-child { border-bottom: none; }
-    .chapter-num {
-      color: var(--accent);
-      font-weight: 700;
-      font-size: 0.85rem;
-      flex-shrink: 0;
-      min-width: 28px;
-    }
+  .science-box {
+    background: #131A3D;
+    border: 1px solid #2A3158;
+    border-left: 4px solid #00D9FF;
+    border-radius: 8px;
+    padding: 25px;
+    margin: 40px 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+  
+  .science-box h3 { color: #E8EAF6; margin-bottom: 12px; font-size: clamp(1.1rem, 4vw, 1.2rem); }
+  .science-box p { font-family: 'Segoe UI', sans-serif; font-size: clamp(0.95rem, 3.5vw, 1rem); margin-bottom: 10px; }
+  .science-box a { color: #00D9FF; text-decoration: none; font-weight: 600; word-wrap: break-word; }
 
-    /* SCIENTIFIC REFERENCES */
-    .references {
-      padding: 40px 0;
-      border-top: 1px solid var(--border);
-      text-align: center;
-    }
-    .references-title {
-      font-size: 1rem;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 24px;
-    }
-    .references-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-    }
-    .ref-badge {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 8px 16px;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-    .ref-badge strong { color: #fff; }
+  /* ---------------------------------------------------
+     FLOATING GAME BUTTON
+     --------------------------------------------------- */
+  .floating-controls {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    pointer-events: none; 
+    z-index: 100;
+  }
 
-    /* HOW IT WORKS */
-    .solution-section {
-      padding: 60px 0;
-      border-top: 1px solid var(--border);
-    }
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-    .step-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 30px 24px;
-      text-align: center;
-      transition: border-color 0.2s;
-    }
-    .step-card:hover { border-color: var(--accent); }
-    .step-number {
-      width: 40px;
-      height: 40px;
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 1.2rem;
-      margin: 0 auto 16px;
-    }
-    .step-card h4 {
-      font-size: 1.2rem;
-      margin-bottom: 12px;
-      color: #fff;
-    }
-    .step-card p {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-    }
+  #game-btn {
+    pointer-events: auto; 
+    background: linear-gradient(135deg, #FF5A5F 0%, #D80032 100%);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 50px;
+    padding: 16px 32px;
+    font-size: clamp(1rem, 4vw, 1.2rem);
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 5px 25px rgba(255, 90, 95, 0.5);
+    animation: pulse-game 2s infinite;
+  }
 
-    /* TESTIMONIALS */
-    .testimonials {
-      padding: 60px 0;
-      border-top: 1px solid var(--border);
-    }
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-    }
-    .testimonial-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px;
-    }
-    .testimonial-text {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 16px;
-      font-style: italic;
-    }
-    .testimonial-author {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .testimonial-avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: var(--surface-light);
-      overflow: hidden;
-      flex-shrink: 0;
-    }
-    .testimonial-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .testimonial-name {
-      font-weight: 700;
-      font-size: 0.9rem;
-      color: #fff;
-    }
-    .testimonial-role {
-      font-size: 0.8rem;
-      color: var(--text-dim);
-    }
+  #game-btn::before { content: '🕹️'; font-size: 1.4rem; }
 
-    /* GUARANTEE */
-    .guarantee {
-      background: rgba(0, 230, 118, 0.05);
-      border: 1px solid rgba(0, 230, 118, 0.2);
-      border-radius: var(--radius);
-      padding: 40px 30px;
-      text-align: center;
-      margin: 60px 0;
-    }
-    .guarantee-badge {
-      width: 64px;
-      height: 64px;
-      margin: 0 auto 16px;
-      background: rgba(0, 230, 118, 0.1);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-    }
-    .guarantee h4 {
-      color: var(--success);
-      font-size: 1.3rem;
-      margin-bottom: 12px;
-    }
-    .guarantee p {
-      color: var(--text-muted);
-      font-size: 1rem;
-      max-width: 600px;
-      margin: 0 auto;
-    }
+  @keyframes pulse-game {
+    0% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 90, 95, 0.4); }
+    50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 90, 95, 0.7); }
+    100% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 90, 95, 0.4); }
+  }
 
-    /* FAQ */
-    .faq {
-      padding: 60px 0;
-      border-top: 1px solid var(--border);
-    }
-    .faq-item {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      margin-bottom: 12px;
-      overflow: hidden;
-    }
-    .faq-question {
-      width: 100%;
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 1.05rem;
-      font-weight: 600;
-      text-align: left;
-      padding: 20px 24px;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      font-family: inherit;
-    }
-    .faq-question:hover { color: var(--accent); }
-    .faq-icon {
-      font-size: 1.3rem;
-      color: var(--accent);
-      flex-shrink: 0;
-      transition: transform 0.2s;
-    }
-    .faq-item.active .faq-icon { transform: rotate(45deg); }
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease, padding 0.3s ease;
-      padding: 0 24px;
-    }
-    .faq-item.active .faq-answer {
-      max-height: 300px;
-      padding: 0 24px 20px;
-    }
-    .faq-answer p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
+  /* ---------------------------------------------------
+     MODAL & MINIGAME
+     --------------------------------------------------- */
+  #game-modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; 
+    width: 100%; height: 100%;
+    min-height: 100vh;
+    background: #0A0E27;
+    z-index: 9999;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    cursor: pointer; 
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 
-    /* DISCREET BILLING NOTE */
-    .billing-note {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 0.85rem;
-      color: var(--text-dim);
-    }
-    .billing-note svg {
-      vertical-align: middle;
-      margin-right: 6px;
-    }
+  #game-modal h2 {
+    color: #00D9FF;
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
+    margin: 0 0 5px 0;
+    text-transform: uppercase;
+  }
 
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 40px 0;
-      border-top: 1px solid var(--border);
-      color: var(--text-muted);
-      font-size: 0.85rem;
-    }
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      margin-bottom: 16px;
-    }
-    .footer-links a {
-      color: var(--text-muted);
-      transition: color 0.2s;
-    }
-    .footer-links a:hover { color: var(--accent); }
+  .game-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px 0;
+    position: relative;
+    border-radius: 8px 8px 0 0;
+  }
 
-    /* RESPONSIVE */
-    @media (max-width: 600px) {
-      .hero h1 { font-size: 2rem; }
-      .module { padding: 20px; }
-      .faq-question { font-size: 0.95rem; }
-      .btn { font-size: 1.05rem; padding: 16px 28px; }
-    }
-  </style>
+  canvas {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 10 / 3.5; 
+    background: rgba(19, 26, 61, 0.5);
+    border: 2px solid #2A3158;
+    border-bottom: 2px solid #00D9FF;
+    border-radius: 8px 8px 0 0;
+    display: block;
+  }
+
+  .score-board {
+    display: flex;
+    justify-content: space-between;
+    color: #00D9FF;
+    font-weight: 800;
+    font-family: 'Segoe UI', sans-serif;
+    margin-top: 10px;
+    font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .game-instructions {
+    color: #B0B8D4;
+    font-size: clamp(0.8rem, 3vw, 0.95rem);
+    margin-top: 15px;
+    pointer-events: none;
+  }
+
+  #close-modal {
+    background: transparent;
+    border: 1px solid #2A3158;
+    color: #7C86AC;
+    padding: 12px 30px;
+    font-size: clamp(0.9rem, 3.5vw, 1rem);
+    cursor: pointer;
+    border-radius: 50px;
+    margin-top: 20px;
+    position: relative;
+    z-index: 20;
+  }
+  #close-modal:hover { color: #E8EAF6; border-color: #FF5A5F; }
+
+  /* ---------------------------------------------------
+     THE ULTIMATE PAYWALL & MARKETING BUNDLE
+     --------------------------------------------------- */
+  .paywall-overlay {
+    display: none; 
+    position: fixed; 
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(10, 14, 39, 0.97);
+    backdrop-filter: blur(8px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    padding: 20px;
+    animation: fadeIn 0.4s ease forwards;
+    cursor: default; 
+    overflow-y: auto;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+
+  .paywall-content {
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    background: #131A3D;
+    border: 1px solid #2A3158;
+    border-top: 4px solid #FF5A5F;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  }
+
+  .paywall-content h3 {
+    color: #FF5A5F;
+    font-size: clamp(1.5rem, 6vw, 2.2rem);
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+  }
+
+  .paywall-subtitle {
+    font-size: clamp(0.95rem, 3.5vw, 1.1rem);
+    color: #B0B8D4;
+    margin-bottom: 25px;
+    line-height: 1.4;
+  }
+
+  .bundle-box {
+    background: rgba(10, 14, 39, 0.6);
+    border: 1px dashed #00D9FF;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: left;
+    margin-bottom: 30px;
+  }
+
+  .bundle-box h4 {
+    color: #00D9FF;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .bundle-list {
+    list-style: none;
+    color: #E8EAF6;
+    font-size: 0.95rem;
+  }
+
+  .bundle-list li {
+    margin-bottom: 15px;
+    padding-left: 30px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .bundle-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #00D9FF;
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+
+  .bundle-list strong { color: #FFFFFF; font-size: 1.05rem; display: block; margin-bottom: 2px;}
+
+  .stripe-btn {
+    display: inline-block;
+    width: 100%;
+    background: linear-gradient(135deg, #00D9FF 0%, #0077FF 100%);
+    color: #0A0E27;
+    text-decoration: none;
+    font-weight: 800;
+    padding: 16px 24px;
+    border-radius: 8px;
+    font-size: clamp(1rem, 4vw, 1.2rem);
+    text-transform: uppercase;
+    box-shadow: 0 10px 25px rgba(0, 217, 255, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.05em;
+  }
+
+  .stripe-btn:hover { 
+    transform: translateY(-3px); 
+    box-shadow: 0 15px 35px rgba(0, 217, 255, 0.6);
+  }
+
+  @supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .floating-controls { padding-bottom: calc(20px + env(safe-area-inset-bottom)); }
+  }
+</style>
 </head>
 <body>
-  <header>
-    <div class="logo">Free Mind <span>Protocol</span></div>
-  </header>
+
+  <div class="brand">Free Mind Protocol <span>·</span> The Science of Focus</div>
 
   <main>
+    <article>
+      <h1>How You Lose 60 Days a Year to Screens (And How to Get Them Back)</h1>
+      <div class="author-date">Behavioral Research • 6 min read</div>
 
-    <!-- ==================== HERO ==================== -->
-    <section class="hero">
-      <div class="container">
-        <div class="hero-label">Your brain is being hijacked</div>
+      <p>You don't plan to lose 4 hours a day to apps designed to steal your attention. A 10-minute break turns into 2 hours. "Just one more video" turns into 2 AM.</p>
 
-        <h1>Stop watching your life slip away through a <span>screen.</span></h1>
+      <p>The scariest part isn't the lost hours, but what they take with them: your focus, your drive, and the version of yourself that never gets built. You promise yourself "never again," yet repeat the cycle the very next night. This isn't weakness. You have been hacked.</p>
 
-        <p class="subheadline">A science-based 30-day protocol to reset your dopamine system, break free from digital addiction, and reclaim your focus, energy, and motivation. No willpower required — just a system that works.</p>
+      <h2>The Biology of Digital Addiction</h2>
 
-        <!-- IMAGE PLACEHOLDER: eBook mockup on tablet/phone (800x600px) -->
-	<!-- HERO IMAGE: eBook cover -->
-	<div class="hero-image">
-  	<img src="imagens/Capa.png.png" alt="Free Mind Protocol eBook Cover" />
-	</div>
+      <p>Your brain is an operating system that hasn't received a hardware update in 50,000 years. Dopamine, often mistaken for the pleasure molecule, is actually the molecule of <strong>pursuit and motivation</strong>. Today, tech companies use engineers and psychologists to trigger the <em>Coolidge Effect</em> in your mind, addicting you to the infinite novelty of every scroll.</p>
 
-        <!-- SYMPTOMS -->
-        <div class="symptoms-box">
-          <h3>Does this sound like you?</h3>
-          <ul class="symptom-list">
-            <li><span class="icon-x">✕</span> Scrolling until 2 AM even when you know you should sleep</li>
-            <li><span class="icon-x">✕</span> Turning to pornography to "relax," only to feel emptier afterward</li>
-            <li><span class="icon-x">✕</span> Unable to focus on a single task for 30 minutes without reaching for your phone</li>
-            <li><span class="icon-x">✕</span> Nothing feels exciting anymore unless it's fast, loud, or extreme</li>
-          </ul>
-        </div>
-
-        <!-- CTA -->
-        <div class="cta-wrapper">
-          <a href="https://buy.stripe.com/9B64gB9Zm10MdiVa2M8k800" class="btn">Break The Loop Now</a>
-          <span class="price-tag">Complete 30-Day Protocol for just <strong>$19.90</strong></span>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== WHAT'S INSIDE ==================== -->
-    <section class="whats-inside">
-      <div class="container">
-        <h2 class="section-title">What's Inside the Protocol</h2>
-        <p class="section-subtitle">A 16-chapter eBook grounded in neuroscience and behavioral psychology. Not a blog post. Not a checklist. A complete system.</p>
-
-        <div class="product-format">
-          <div class="format-badge"><strong>Format:</strong> Instant digital download (PDF)</div>
-          <div class="format-badge"><strong>Length:</strong> 16 chapters + bibliography</div>
-          <div class="format-badge"><strong>Access:</strong> Immediate after purchase</div>
-        </div>
-
-        <!-- MODULE 1 -->
-        <div class="module">
-          <div class="module-header">
-            <span class="module-number">Module 1</span>
-            <span class="module-title">Understanding the Problem (Chapters 1–5)</span>
-          </div>
-          <ul class="chapter-list">
-            <li><span class="chapter-num">Ch 1</span> You Are Not Alone (And It's Not 100% Your Fault)</li>
-            <li><span class="chapter-num">Ch 2</span> What You Lost (And What You Will Gain Back)</li>
-            <li><span class="chapter-num">Ch 3</span> The Dopamine Hijacking (Why You Want What You Don't Like)</li>
-            <li><span class="chapter-num">Ch 4</span> The Coolidge Effect and Infinite Novelty</li>
-            <li><span class="chapter-num">Ch 5</span> The Lie of "High Libido"</li>
-          </ul>
-        </div>
-
-        <!-- MODULE 2 -->
-        <div class="module">
-          <div class="module-header">
-            <span class="module-number">Module 2</span>
-            <span class="module-title">Preparation (Chapters 6–8)</span>
-          </div>
-          <ul class="chapter-list">
-            <li><span class="chapter-num">Ch 6</span> Digital Hygiene (Smart Blocking)</li>
-            <li><span class="chapter-num">Ch 7</span> Identifying the Triggers (HALT Technique)</li>
-            <li><span class="chapter-num">Ch 8</span> The New Environment (Architecture of Discipline)</li>
-          </ul>
-        </div>
-
-        <!-- MODULE 3 -->
-        <div class="module">
-          <div class="module-header">
-            <span class="module-number">Module 3</span>
-            <span class="module-title">The 30-Day Protocol (Chapters 9–16)</span>
-          </div>
-          <ul class="chapter-list">
-            <li><span class="chapter-num">Ch 9</span> Week 1 — Abstinence (The Necessary Hell)</li>
-            <li><span class="chapter-num">Ch 10</span> The "Emergency Surfer" Technique</li>
-            <li><span class="chapter-num">Ch 11</span> Weeks 2 & 3 — The "Flatline" (The Desert)</li>
-            <li><span class="chapter-num">Ch 12</span> The Panic Button</li>
-            <li><span class="chapter-num">Ch 13</span> Sexual Transmutation (The Alchemy of Success)</li>
-            <li><span class="chapter-num">Ch 14</span> Replacing Cheap Dopamine (Pleasure Deserved)</li>
-            <li><span class="chapter-num">Ch 15</span> What to Do If You Relapse?</li>
-            <li><span class="chapter-num">Ch 16</span> The Lifetime Plan (The New Identity)</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== SCIENTIFIC REFERENCES ==================== -->
-    <section class="references">
-      <div class="container">
-        <p class="references-title">Grounded in Real Science</p>
-        <div class="references-list">
-          <div class="ref-badge"><strong>Anna Lembke</strong> — Dopamine Nation</div>
-          <div class="ref-badge"><strong>Gary Wilson</strong> — Your Brain on Porn</div>
-          <div class="ref-badge"><strong>Robert Sapolsky</strong> — Behave</div>
-          <div class="ref-badge"><strong>James Clear</strong> — Atomic Habits</div>
-          <div class="ref-badge"><strong>Cal Newport</strong> — Digital Minimalism</div>
-          <div class="ref-badge"><strong>Napoleon Hill</strong> — Think and Grow Rich</div>
-          <div class="ref-badge"><strong>JAMA Psychiatry</strong> — Peer-reviewed studies</div>
-          <div class="ref-badge"><strong>Journal of Neuroscience</strong> — Peer-reviewed studies</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== HOW IT WORKS ==================== -->
-    <section class="solution-section">
-      <div class="container">
-        <h2 class="section-title">The Way Out</h2>
-        <p class="section-subtitle">Three phases. Thirty days. One transformation.</p>
-
-        <div class="steps-grid">
-          <div class="step-card">
-            <div class="step-number">1</div>
-            <h4>Detox & Understand</h4>
-            <p>Learn exactly how your dopamine receptors were hijacked and how to survive the withdrawal phase without relapsing.</p>
-          </div>
-          <div class="step-card">
-            <div class="step-number">2</div>
-            <h4>Build the Defense System</h4>
-            <p>Restructure your digital environment. Build physical and digital barriers so doing the right thing becomes automatic — not a daily battle of willpower.</p>
-          </div>
-          <div class="step-card">
-            <div class="step-number">3</div>
-            <h4>Transmute Energy</h4>
-            <p>Take the massive raw energy you used to waste on cheap dopamine and channel it into building your body, focus, and future.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== TESTIMONIALS ==================== -->
-    <section class="testimonials">
-      <div class="container">
-        <h2 class="section-title">Real Results</h2>
-        <p class="section-subtitle">People who took back control of their brains.</p>
-
-        <div class="testimonials-grid">
-          <!-- TESTIMONIAL 1 -->
-          <div class="testimonial-card">
-            <p class="testimonial-text">"Day 12 and I already feel sharper than I have in years. The urge surfing technique alone was worth 10x the price."</p>
-            <div class="testimonial-author">
-              <!-- IMAGE: Client avatar (150x150px) --><!-- Testimonial 1 avatar -->
-	      <div class="testimonial-avatar">
-	       <img src="imagens/persona1.png.png" alt="Customer" />
-	      </div>
-              <div>
-                <div class="testimonial-name">Marcus H.</div>
-                <div class="testimonial-role">Verified Buyer</div>
-              </div>
-            </div>
-          </div>
-          <!-- TESTIMONIAL 2 -->
-          <div class="testimonial-card">
-            <p class="testimonial-text">"I tried NoFap for years with no success. This protocol explained the neuroscience in a way that finally made it click. Flatline was rough but worth it."</p>
-            <div class="testimonial-author">
-              <!-- IMAGE: Client avatar (150x150px) -->
-              <div class="testimonial-avatar">
-	       <img src="imagens/persona2.png.png" alt="Customer" />
-	      </div>
-              <div>
-                <div class="testimonial-name">David R.</div>
-                <div class="testimonial-role">Verified Buyer</div>
-              </div>
-            </div>
-          </div>
-          <!-- TESTIMONIAL 3 -->
-          <div class="testimonial-card">
-            <p class="testimonial-text">"The HALT technique changed everything for me. Every time I feel an urge now, I check in with myself first. 30 days clean for the first time ever."</p>
-            <div class="testimonial-author">
-              <!-- IMAGE: Client avatar (150x150px) -->
-              <div class="testimonial-avatar">
-	       <img src="imagens/persona3.png.png" alt="Customer" />
-	      </div>
-              <div>
-                <div class="testimonial-name">Jake T.</div>
-                <div class="testimonial-role">Verified Buyer</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== GUARANTEE ==================== -->
-    <section class="container">
-      <div class="guarantee">
-        <div class="guarantee-badge">🛡️</div>
-        <h4>7-Day Ironclad Guarantee</h4>
-        <p>Get inside. Read the protocol. Apply the defense systems. If you don't feel a noticeable shift in your clarity and control within 7 days, get 100% of your money back. No questions asked.</p>
+      <div class="science-box">
+        <h3>The Science of Focus (Further Reading)</h3>
+        <p>Recent studies in <em>JAMA Psychiatry</em> correlate high consumption of artificial digital stimuli (like pornography or short-form feeds) with decreased gray matter volume in the brain. Neuroscience experts point out that restricting cheap dopamine is essential to curing "Brain Fog."</p>
+        <p><a href="https://smartrecovery.org/" target="_blank">🔗 Learn about science-based recovery tools (SMART Recovery) &rarr;</a></p>
       </div>
 
-      <!-- CTA FINAL -->
-      <div class="cta-wrapper">
-        <a href="https://buy.stripe.com/9B64gB9Zm10MdiVa2M8k800" class="btn">Get Immediate Access</a>
-        <span class="price-tag">Start your reset for <strong>$19.90</strong></span>
-        <p class="billing-note">🔒 Discreet billing — your statement shows a generic charge. No mention of the product name.</p>
-      </div>
-    </section>
+      <h2>The H.A.L.T. Diagnostic</h2>
 
-    <!-- ==================== FAQ ==================== -->
-    <section class="faq">
-      <div class="container">
-        <h2 class="section-title">Frequently Asked Questions</h2>
+      <p>To disarm the cycle, you must intercept the trigger. The <strong>H.A.L.T.</strong> technique helps you identify biological discomforts that your brain misinterprets as an "urge to use your phone":</p>
 
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            What exactly do I get?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>A 16-chapter eBook in PDF format, available for instant download immediately after purchase. No shipping, no waiting. You can read it on any device — phone, tablet, or computer.</p>
-          </div>
-        </div>
+      <p>
+        <strong>Hungry:</strong> Without glucose, your prefrontal cortex (self-control) shuts down.<br>
+        <strong>Angry/Anxious:</strong> You use the screen as a pacifier for negative emotions.<br>
+        <strong>Lonely:</strong> The internet simulates the social connection you lack.<br>
+        <strong>Tired:</strong> Willpower is a battery that drains by nightfall. That's when 90% of relapses happen.
+      </p>
 
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            Is this a physical book?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>No. It's a digital PDF that you can read on any device — phone, tablet, or computer. You get immediate access after purchase.</p>
-          </div>
-        </div>
+      <h2>The Emergency Override</h2>
 
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            Is this religious or spiritual?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>No. The protocol is grounded in neuroscience, behavioral psychology, and practical strategy. No dogma, no preaching.</p>
-          </div>
-        </div>
+      <p>When an irrational urge hits, do not try to fight the thought. You need an immediate pattern interruption. The next time you feel the overwhelming desire to waste your time on endless scrolling, click the <strong>PLAY EMERGENCY GAME</strong> button at the bottom of your screen.</p>
 
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            Does this work for pornography addiction specifically?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Yes. While the protocol addresses all forms of digital addiction (social media, gaming, scrolling), it has a dedicated focus on pornography recovery — including sexual transmutation, the flatline phase, and relapse prevention.</p>
-          </div>
-        </div>
+      <p>Playing a fast-paced game forces your brain to reallocate its energy from anxiety to motor skills and visual coordination. It effectively starves the craving.</p>
 
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            What if it doesn't work for me?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>You have 7 days to try it risk-free. If you don't feel a shift, contact us at protocolfreemind@gmail.com for a full refund. No questions, no friction.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            Is my purchase discreet?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Yes. Your statement will show a generic charge from Stripe. No mention of the product name or nature on your billing statement.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
+    </article>
   </main>
-  <!-- ==================== LEGAL MODALS ==================== -->
-  <div id="legal-modal" class="legal-modal" style="display:none;">
-    <div class="legal-modal-content">
-      <button class="legal-close" onclick="closeLegal()">&times;</button>
-      <div id="legal-content"></div>
-    </div>
+
+  <!-- Cross-Device Floating Game Button -->
+  <div class="floating-controls">
+    <button id="game-btn" title="Emergency Protocol">
+      Play Emergency Game
+    </button>
   </div>
 
-  <style>
-    .legal-modal {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8); z-index: 1000;
-      display: flex; justify-content: center; align-items: flex-start;
-      padding: 40px 20px; overflow-y: auto;
-    }
-    .legal-modal-content {
-      background: #050505; border: 1px solid #222; border-radius: 12px;
-      max-width: 700px; width: 100%; padding: 40px; margin-bottom: 40px;
-    }
-    .legal-close {
-      background: none; border: none; color: #ff4713; font-size: 2rem;
-      float: right; cursor: pointer; line-height: 1; padding: 0;
-    }
-    .legal-close:hover { color: #ff6035; }
-    .legal-modal h1 {
-      font-size: 1.8rem; margin-bottom: 8px; color: #fff;
-    }
-    .legal-modal .updated {
-      color: #a0a0a0; font-size: 0.85rem; margin-bottom: 30px;
-    }
-    .legal-modal h2 {
-      font-size: 1.2rem; margin: 28px 0 10px; color: #fff;
-    }
-    .legal-modal h3 {
-      font-size: 1rem; margin: 18px 0 8px; color: #ff4713;
-    }
-    .legal-modal p {
-      color: #a0a0a0; margin-bottom: 14px; line-height: 1.7;
-    }
-    .legal-modal ul, .legal-modal ol {
-      color: #a0a0a0; margin: 0 0 14px 20px; line-height: 1.7;
-    }
-    .legal-modal li { margin-bottom: 6px; }
-    .legal-modal strong { color: #fff; }
-    .legal-modal a { color: #ff4713; }
-    .legal-modal blockquote {
-      border-left: 3px solid #ff4713; padding: 10px 16px;
-      margin: 12px 0; background: #121212; border-radius: 8px;
-    }
-    .legal-modal blockquote p { margin: 0; }
-    .guarantee-box-modal {
-      background: rgba(0,230,118,0.05);
-      border: 1px solid rgba(0,230,118,0.2);
-      border-radius: 12px; padding: 20px; margin: 20px 0;
-    }
-    .guarantee-box-modal h2 { color: #00e676; margin-top: 0; }
-  </style>
+  <!-- GAME MODAL -->
+  <div id="game-modal">
+    <h2>PATTERN INTERRUPT</h2>
+    <p style="font-size: clamp(0.95rem, 4vw, 1.1rem); color: #B0B8D4; max-width: 550px; margin-bottom: 10px;">
+      Focus on the game. Starve the craving.
+    </p>
+    
+    <div class="game-container">
+      <canvas id="gameCanvas" width="600" height="210"></canvas>
+      
+      <!-- FULL SCREEN PAYWALL OVERLAY -->
+      <div id="paywall" class="paywall-overlay">
+        <div class="paywall-content">
+          <h3>WHY DID THIS WORK?</h3>
+          <p class="paywall-subtitle">A simple "breathe" button fails because your brain demands dopamine.<br>Action kills the urge. Games force your brain to redirect energy instantly.</p>
+          
+          <div class="bundle-box">
+            <h4>Unlock The Ultimate Rescue Bundle:</h4>
+            <ul class="bundle-list">
+              <li>
+                <strong>3 "Pattern Interrupt" Games (Active Panic Buttons)</strong>
+                Don't rely on willpower. When the craving hits, play one of these 3 fast-paced games. They hijack your motor skills and starve the urge in under 60 seconds. It is a biological override.
+              </li>
+              <li>
+                <strong>The 30-Day Free Mind E-Book</strong>
+                The games save you today. This book will help you forever. Get the exact step-by-step protocol to reset your dopamine baseline and take your life back.
+              </li>
+            </ul>
+          </div>
 
-  <!-- ==================== FOOTER ==================== -->
-  <footer>
-    <div class="container">
-      <div class="footer-links">
-        <a href="#" onclick="showLegal('privacy'); return false;">Privacy Policy</a>
-        <a href="#" onclick="showLegal('terms'); return false;">Terms of Service</a>
-        <a href="#" onclick="showLegal('refund'); return false;">Refund Policy</a>
-        <a href="mailto:protocolfreemind@gmail.com">Contact</a>
+          <!-- STRIPE LINK HERE -->
+          <a href="https://buy.stripe.com/9B64gB9Zm10MdiVa2M8k800" class="stripe-btn" target="_blank">
+            DOWNLOAD 3 GAMES + E-BOOK
+          </a>
+        </div>
       </div>
-      <p>© <span id="year"></span> Free Mind Protocol. All rights reserved.</p>
+
+      <div class="score-board">
+        <span id="scoreText">Score: 0</span>
+        <span id="hiScoreText">Goal: Survive 12s</span>
+      </div>
     </div>
-  </footer>
+    
+    <p class="game-instructions">Tap anywhere on the screen or press Space to jump.</p>
+    
+    <button id="close-modal">Close Game</button>
+  </div>
 
   <script>
-    // Auto year
-    document.getElementById("year").textContent = new Date().getFullYear();
+    // ------------------------------------------------
+    // UI LOGIC & MODAL HANDLING
+    // ------------------------------------------------
+    const gameBtn = document.getElementById('game-btn');
+    const gameModal = document.getElementById('game-modal');
+    const closeModal = document.getElementById('close-modal');
+    const paywall = document.getElementById('paywall');
+    
+    let gameLoop; 
+    let isPaywallActive = false;
 
-    // FAQ accordion
-    function toggleFAQ(button) {
-      const item = button.parentElement;
-      const isActive = item.classList.contains("active");
-      document.querySelectorAll(".faq-item").forEach(el => el.classList.remove("active"));
-      if (!isActive) item.classList.add("active");
-    }
+    gameBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      gameModal.style.display = 'flex';
+      document.body.style.overflow = 'hidden'; 
+      resetGame();
+      gameLoop = requestAnimationFrame(updateGame);
+    });
 
-    // LEGAL PAGES
-    const legalPages = {
-      privacy: {
-        title: "Privacy Policy",
-        updated: "Last updated: August 26, 2026",
-        body: `
-          <h2>Introduction</h2>
-          <p>Free Mind Protocol ("we," "us," "our") operates <strong>freemindprotocol.com</strong>. This Privacy Policy explains how we collect, use, and protect your personal information when you visit our Site or purchase our digital products.</p>
-          <h2>Information We Collect</h2>
-          <h3>Personal Information</h3>
-          <p>When you purchase our product, we collect your name, email address, and billing address. This information is collected and processed by our payment processor, <strong>Stripe, Inc.</strong></p>
-          <h3>Payment Information</h3>
-          <p>We do <strong>NOT</strong> store, process, or have access to your credit card or payment details. All payment information is handled directly and securely by Stripe.</p>
-          <h3>Automatic Information</h3>
-          <p>We may collect technical data such as your IP address, browser type, and pages visited through standard analytics tools.</p>
-          <h2>How We Use Your Information</h2>
-          <ul>
-            <li>To process and fulfill your order</li>
-            <li>To provide customer support</li>
-            <li>To prevent fraud and comply with legal obligations</li>
-          </ul>
-          <h2>Information Sharing</h2>
-          <p>We do <strong>NOT</strong> sell, rent, or trade your personal information. We may share information only with Stripe for transaction processing, or when required by law.</p>
-          <h2>Your Rights</h2>
-          <p>Depending on your location, you may have the right to access, correct, or delete your personal information. California residents have additional rights under the <strong>CCPA</strong>.</p>
-          <h2>Children's Privacy</h2>
-          <p>Our products are not intended for individuals under 18 years of age.</p>
-          <h2>Contact</h2>
-          <p>Questions? Contact: <a href="mailto:protocolfreemind@gmail.com">protocolfreemind@gmail.com</a></p>
-        `
+    closeModal.addEventListener('click', (e) => {
+      e.stopPropagation(); 
+      gameModal.style.display = 'none';
+      document.body.style.overflow = 'auto'; 
+      cancelAnimationFrame(gameLoop);
+    });
+
+    // Stops the paywall area from triggering a jump
+    paywall.addEventListener('pointerdown', (e) => {
+      e.stopPropagation();
+    });
+
+    // ------------------------------------------------
+    // RUNNER MINIGAME LOGIC
+    // ------------------------------------------------
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    let frames = 0;
+    let score = 0;
+    let gameSpeed = 6;
+    let obstacles = [];
+    
+    const player = {
+      x: 50,
+      y: 160,
+      w: 24,
+      h: 24,
+      dy: 0,
+      gravity: 0.65,
+      jumpPower: -11.5,
+      grounded: true,
+      
+      draw() {
+        ctx.fillStyle = '#00D9FF';
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = '#00D9FF';
+        ctx.fillRect(this.x, this.y, this.w, this.h);
+        ctx.shadowBlur = 0; 
       },
-      terms: {
-        title: "Terms of Service",
-        updated: "Last updated: August 26, 2026",
-        body: `
-          <h2>Acceptance of Terms</h2>
-          <p>By accessing <strong>freemindprotocol.com</strong> and purchasing our products, you agree to be bound by these Terms.</p>
-          <h2>Products</h2>
-          <p>Free Mind Protocol sells a digital eBook in PDF format. Upon payment, you receive immediate access to download the Product.</p>
-          <h2>Medical Disclaimer</h2>
-          <blockquote>
-            <p>This Product is for educational purposes only. It is <strong>NOT</strong> a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare professional.</p>
-          </blockquote>
-          <h2>License and Usage</h2>
-          <p>Upon purchase, you are granted a <strong>personal, non-exclusive, non-transferable license</strong> for personal use only. You may <strong>NOT</strong> copy, share, resell, or distribute the Product.</p>
-          <h2>Intellectual Property</h2>
-          <p>All content is protected by <strong>U.S. and international copyright laws</strong>. All rights reserved.</p>
-          <h2>Pricing</h2>
-          <p>Current price: <strong>$19.90 USD</strong>. Payments processed by <strong>Stripe, Inc.</strong></p>
-          <h2>Limitation of Liability</h2>
-          <p>Free Mind Protocol shall not be liable for indirect or consequential damages. Total liability shall not exceed the amount paid ($19.90). We do not guarantee specific results.</p>
-          <h2>Contact</h2>
-          <p>Questions? Contact: <a href="mailto:protocolfreemind@gmail.com">protocolfreemind@gmail.com</a></p>
-        `
+      
+      update() {
+        this.y += this.dy;
+        if (this.y + this.h < canvas.height) {
+          this.dy += this.gravity;
+          this.grounded = false;
+        } else {
+          this.dy = 0;
+          this.y = canvas.height - this.h;
+          this.grounded = true;
+        }
+        this.draw();
       },
-      refund: {
-        title: "Refund Policy",
-        updated: "Last updated: August 26, 2026",
-        body: `
-          <div class="guarantee-box-modal">
-            <h2>7-Day Money-Back Guarantee</h2>
-            <p>You have <strong>7 days</strong> from purchase to request a full refund — no questions asked.</p>
-          </div>
-          <h2>How to Request a Refund</h2>
-          <ol>
-            <li>Email <a href="mailto:protocolfreemind@gmail.com">protocolfreemind@gmail.com</a> within 7 days.</li>
-            <li>Include your <strong>order number</strong> and "Refund" in the subject line.</li>
-            <li>No explanation required.</li>
-          </ol>
-          <h2>Processing</h2>
-          <ul>
-            <li>Refunds processed through <strong>Stripe</strong> to your original payment method</li>
-            <li>Processing time: <strong>5-7 business days</strong></li>
-            <li>After 7 days, all sales are final</li>
-          </ul>
-          <h2>Cancellation</h2>
-          <p>This is a one-time digital download. No subscription to cancel.</p>
-          <h2>Contact</h2>
-          <p>Questions? Contact: <a href="mailto:protocolfreemind@gmail.com">protocolfreemind@gmail.com</a></p>
-        `
+      
+      jump() {
+        if (this.grounded && !isPaywallActive) {
+          this.dy = this.jumpPower;
+          this.grounded = false;
+        }
       }
     };
 
-    function showLegal(page) {
-      const data = legalPages[page];
-      document.getElementById("legal-content").innerHTML =
-        '<h1>' + data.title + '</h1>' +
-        '<p class="updated">' + data.updated + '</p>' +
-        data.body;
-      document.getElementById("legal-modal").style.display = "flex";
-      document.body.style.overflow = "hidden";
+    class Obstacle {
+      constructor() {
+        this.w = 20 + Math.random() * 20;
+        this.h = 25 + Math.random() * 40;
+        this.x = canvas.width;
+        this.y = canvas.height - this.h;
+      }
+      
+      draw() {
+        ctx.fillStyle = '#FF5A5F';
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = '#FF5A5F';
+        ctx.fillRect(this.x, this.y, this.w, this.h);
+        ctx.shadowBlur = 0;
+      }
+      
+      update() {
+        this.x -= gameSpeed;
+        this.draw();
+      }
     }
 
-    function closeLegal() {
-      document.getElementById("legal-modal").style.display = "none";
-      document.body.style.overflow = "auto";
+    function handleObstacles() {
+      if (frames % 70 === 0) {
+        obstacles.push(new Obstacle());
+      }
+      
+      for (let i = 0; i < obstacles.length; i++) {
+        let obs = obstacles[i];
+        obs.update();
+        
+        // AABB Collision
+        if (
+          player.x < obs.x + obs.w &&
+          player.x + player.w > obs.x &&
+          player.y < obs.y + obs.h &&
+          player.y + player.h > obs.y
+        ) {
+          // Soft reset on collision
+          obstacles = [];
+          score = Math.max(0, score - 15); 
+          return; 
+        }
+        
+        if (obs.x + obs.w < 0) {
+          obstacles.splice(i, 1);
+          i--;
+        }
+      }
     }
 
-    // Close on outside click
-    document.getElementById("legal-modal").addEventListener("click", function(e) {
-      if (e.target === this) closeLegal();
+    function resetGame() {
+      player.y = canvas.height - player.h;
+      player.dy = 0;
+      obstacles = [];
+      score = 0;
+      frames = 0;
+      gameSpeed = 6;
+      isPaywallActive = false;
+      paywall.style.display = 'none';
+    }
+
+    function triggerPaywall() {
+      isPaywallActive = true;
+      paywall.style.display = 'flex';
+      cancelAnimationFrame(gameLoop);
+    }
+
+    function updateGame() {
+      if (gameModal.style.display === 'none' || isPaywallActive) return; 
+      
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      player.update();
+      handleObstacles();
+      
+      score += 0.1; // 60fps = +6 score per second. 12 seconds = 72 score.
+      frames++;
+      
+      document.getElementById('scoreText').innerText = 'Score: ' + Math.floor(score);
+      
+      // PAYWALL TRIGGER: Exactly 12 seconds (score 72)
+      if (score >= 72 && !isPaywallActive) {
+        triggerPaywall();
+        return;
+      }
+      
+      gameLoop = requestAnimationFrame(updateGame);
+    }
+
+    // ------------------------------------------------
+    // UNIVERSAL INPUT LOGIC
+    // ------------------------------------------------
+    window.addEventListener('keydown', (e) => {
+      if (gameModal.style.display === 'flex' && (e.code === 'Space' || e.code === 'ArrowUp')) {
+        e.preventDefault(); 
+        player.jump();
+      }
     });
 
-    // Close on ESC
-    document.addEventListener("keydown", function(e) {
-      if (e.key === "Escape") closeLegal();
+    gameModal.addEventListener('pointerdown', (e) => {
+      if (e.target !== closeModal && !isPaywallActive) {
+        e.preventDefault(); 
+        player.jump();
+      }
     });
+
   </script>
+
 </body>
 </html>
