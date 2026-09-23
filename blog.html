@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>The Dopamine Epidemic — Free Mind Protocol</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    background: #0A0E27;
+    color: #E8EAF6;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Minimalist Header */
+  .brand {
+    font-size: clamp(0.75rem, 2vw, 0.85rem);
+    letter-spacing: 0.2em; 
+    color: #7C86AC;
+    text-transform: uppercase; 
+    text-align: center;
+    padding: 20px;
+    background: rgba(10, 14, 39, 0.95);
+    border-bottom: 1px solid #232B4D;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .brand span { color: #00D9FF; font-weight: 800; }
+
+  /* Main Container */
+  main {
+    width: 100%;
+    max-width: 740px;
+    margin: 30px auto;
+    padding: 0 20px 120px 20px; 
+  }
+
+  /* Typography */
+  h1 {
+    font-size: clamp(1.8rem, 6vw, 3.2rem);
+    line-height: 1.15;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    color: #FFFFFF;
+  }
+
+  h2 {
+    font-size: clamp(1.3rem, 5vw, 1.8rem);
+    line-height: 1.3;
+    font-weight: 700;
+    margin: 40px 0 20px 0;
+    color: #00D9FF;
+  }
+
+  p {
+    font-family: Georgia, serif;
+    font-size: clamp(1rem, 4vw, 1.15rem);
+    line-height: 1.8;
+    color: #B0B8D4;
+    margin-bottom: 24px;
+  }
+
+  .author-date {
+    font-size: 0.85rem;
+    color: #7C86AC;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #232B4D;
+  }
+
+  .science-box {
+    background: #131A3D;
+    border: 1px solid #2A3158;
+    border-left: 4px solid #00D9FF;
+    border-radius: 8px;
+    padding: 25px;
+    margin: 40px 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+  
+  .science-box h3 { color: #E8EAF6; margin-bottom: 12px; font-size: clamp(1.1rem, 4vw, 1.2rem); }
+  .science-box p { font-family: 'Segoe UI', sans-serif; font-size: clamp(0.95rem, 3.5vw, 1rem); margin-bottom: 10px; }
+  .science-box a { color: #00D9FF; text-decoration: none; font-weight: 600; word-wrap: break-word; }
+
+  /* ---------------------------------------------------
+     FLOATING GAME BUTTON
+     --------------------------------------------------- */
+  .floating-controls {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    pointer-events: none; 
+    z-index: 100;
+  }
+
+  #game-btn {
+    pointer-events: auto; 
+    background: linear-gradient(135deg, #FF5A5F 0%, #D80032 100%);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 50px;
+    padding: 16px 32px;
+    font-size: clamp(1rem, 4vw, 1.2rem);
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 5px 25px rgba(255, 90, 95, 0.5);
+    animation: pulse-game 2s infinite;
+  }
+
+  #game-btn::before { content: '🕹️'; font-size: 1.4rem; }
+
+  @keyframes pulse-game {
+    0% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 90, 95, 0.4); }
+    50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 90, 95, 0.7); }
+    100% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 90, 95, 0.4); }
+  }
+
+  /* ---------------------------------------------------
+     MODAL & MINIGAME
+     --------------------------------------------------- */
+  #game-modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; 
+    width: 100%; height: 100%;
+    min-height: 100vh;
+    background: #0A0E27;
+    z-index: 9999;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    cursor: pointer; 
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #game-modal h2 {
+    color: #00D9FF;
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
+    margin: 0 0 5px 0;
+    text-transform: uppercase;
+  }
+
+  .game-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px 0;
+    position: relative;
+    border-radius: 8px 8px 0 0;
+  }
+
+  canvas {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 10 / 3.5; 
+    background: rgba(19, 26, 61, 0.5);
+    border: 2px solid #2A3158;
+    border-bottom: 2px solid #00D9FF;
+    border-radius: 8px 8px 0 0;
+    display: block;
+  }
+
+  .score-board {
+    display: flex;
+    justify-content: space-between;
+    color: #00D9FF;
+    font-weight: 800;
+    font-family: 'Segoe UI', sans-serif;
+    margin-top: 10px;
+    font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .game-instructions {
+    color: #B0B8D4;
+    font-size: clamp(0.8rem, 3vw, 0.95rem);
+    margin-top: 15px;
+    pointer-events: none;
+  }
+
+  #close-modal {
+    background: transparent;
+    border: 1px solid #2A3158;
+    color: #7C86AC;
+    padding: 12px 30px;
+    font-size: clamp(0.9rem, 3.5vw, 1rem);
+    cursor: pointer;
+    border-radius: 50px;
+    margin-top: 20px;
+    position: relative;
+    z-index: 20;
+  }
+  #close-modal:hover { color: #E8EAF6; border-color: #FF5A5F; }
+
+  /* ---------------------------------------------------
+     THE ULTIMATE PAYWALL & MARKETING BUNDLE
+     --------------------------------------------------- */
+  .paywall-overlay {
+    display: none; 
+    position: fixed; 
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(10, 14, 39, 0.97);
+    backdrop-filter: blur(8px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    padding: 20px;
+    animation: fadeIn 0.4s ease forwards;
+    cursor: default; 
+    overflow-y: auto;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+
+  .paywall-content {
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    background: #131A3D;
+    border: 1px solid #2A3158;
+    border-top: 4px solid #FF5A5F;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  }
+
+  .paywall-content h3 {
+    color: #FF5A5F;
+    font-size: clamp(1.5rem, 6vw, 2.2rem);
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+  }
+
+  .paywall-subtitle {
+    font-size: clamp(0.95rem, 3.5vw, 1.1rem);
+    color: #B0B8D4;
+    margin-bottom: 25px;
+    line-height: 1.4;
+  }
+
+  .bundle-box {
+    background: rgba(10, 14, 39, 0.6);
+    border: 1px dashed #00D9FF;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: left;
+    margin-bottom: 30px;
+  }
+
+  .bundle-box h4 {
+    color: #00D9FF;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .bundle-list {
+    list-style: none;
+    color: #E8EAF6;
+    font-size: 0.95rem;
+  }
+
+  .bundle-list li {
+    margin-bottom: 15px;
+    padding-left: 30px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .bundle-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #00D9FF;
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+
+  .bundle-list strong { color: #FFFFFF; font-size: 1.05rem; display: block; margin-bottom: 2px;}
+
+  .stripe-btn {
+    display: inline-block;
+    width: 100%;
+    background: linear-gradient(135deg, #00D9FF 0%, #0077FF 100%);
+    color: #0A0E27;
+    text-decoration: none;
+    font-weight: 800;
+    padding: 16px 24px;
+    border-radius: 8px;
+    font-size: clamp(1rem, 4vw, 1.2rem);
+    text-transform: uppercase;
+    box-shadow: 0 10px 25px rgba(0, 217, 255, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.05em;
+  }
+
+  .stripe-btn:hover { 
+    transform: translateY(-3px); 
+    box-shadow: 0 15px 35px rgba(0, 217, 255, 0.6);
+  }
+
+  @supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .floating-controls { padding-bottom: calc(20px + env(safe-area-inset-bottom)); }
+  }
+</style>
+</head>
+<body>
+
+  <div class="brand">Free Mind Protocol <span>·</span> The Science of Focus</div>
+
+  <main>
+    <article>
+      <h1>How You Lose 60 Days a Year to Screens (And How to Get Them Back)</h1>
+      <div class="author-date">Behavioral Research • 6 min read</div>
+
+      <p>You don't plan to lose 4 hours a day to apps designed to steal your attention. A 10-minute break turns into 2 hours. "Just one more video" turns into 2 AM.</p>
+
+      <p>The scariest part isn't the lost hours, but what they take with them: your focus, your drive, and the version of yourself that never gets built. You promise yourself "never again," yet repeat the cycle the very next night. This isn't weakness. You have been hacked.</p>
+
+      <h2>The Biology of Digital Addiction</h2>
+
+      <p>Your brain is an operating system that hasn't received a hardware update in 50,000 years. Dopamine, often mistaken for the pleasure molecule, is actually the molecule of <strong>pursuit and motivation</strong>. Today, tech companies use engineers and psychologists to trigger the <em>Coolidge Effect</em> in your mind, addicting you to the infinite novelty of every scroll.</p>
+
+      <div class="science-box">
+        <h3>The Science of Focus (Further Reading)</h3>
+        <p>Recent studies in <em>JAMA Psychiatry</em> correlate high consumption of artificial digital stimuli (like pornography or short-form feeds) with decreased gray matter volume in the brain. Neuroscience experts point out that restricting cheap dopamine is essential to curing "Brain Fog."</p>
+        <p><a href="https://smartrecovery.org/" target="_blank">🔗 Learn about science-based recovery tools (SMART Recovery) &rarr;</a></p>
+      </div>
+
+      <h2>The H.A.L.T. Diagnostic</h2>
+
+      <p>To disarm the cycle, you must intercept the trigger. The <strong>H.A.L.T.</strong> technique helps you identify biological discomforts that your brain misinterprets as an "urge to use your phone":</p>
+
+      <p>
+        <strong>Hungry:</strong> Without glucose, your prefrontal cortex (self-control) shuts down.<br>
+        <strong>Angry/Anxious:</strong> You use the screen as a pacifier for negative emotions.<br>
+        <strong>Lonely:</strong> The internet simulates the social connection you lack.<br>
+        <strong>Tired:</strong> Willpower is a battery that drains by nightfall. That's when 90% of relapses happen.
+      </p>
+
+      <h2>The Emergency Override</h2>
+
+      <p>When an irrational urge hits, do not try to fight the thought. You need an immediate pattern interruption. The next time you feel the overwhelming desire to waste your time on endless scrolling, click the <strong>PLAY EMERGENCY GAME</strong> button at the bottom of your screen.</p>
+
+      <p>Playing a fast-paced game forces your brain to reallocate its energy from anxiety to motor skills and visual coordination. It effectively starves the craving.</p>
+
+    </article>
+  </main>
+
+  <!-- Cross-Device Floating Game Button -->
+  <div class="floating-controls">
+    <button id="game-btn" title="Emergency Protocol">
+      Play Emergency Game
+    </button>
+  </div>
+
+  <!-- GAME MODAL -->
+  <div id="game-modal">
+    <h2>PATTERN INTERRUPT</h2>
+    <p style="font-size: clamp(0.95rem, 4vw, 1.1rem); color: #B0B8D4; max-width: 550px; margin-bottom: 10px;">
+      Focus on the game. Starve the craving.
+    </p>
+    
+    <div class="game-container">
+      <canvas id="gameCanvas" width="600" height="210"></canvas>
+      
+      <!-- FULL SCREEN PAYWALL OVERLAY -->
+      <div id="paywall" class="paywall-overlay">
+        <div class="paywall-content">
+          <h3>WHY DID THIS WORK?</h3>
+          <p class="paywall-subtitle">A simple "breathe" button fails because your brain demands dopamine.<br>Action kills the urge. Games force your brain to redirect energy instantly.</p>
+          
+          <div class="bundle-box">
+            <h4>Unlock The Ultimate Rescue Bundle:</h4>
+            <ul class="bundle-list">
+              <li>
+                <strong>3 "Pattern Interrupt" Games (Active Panic Buttons)</strong>
+                Don't rely on willpower. When the craving hits, play one of these 3 fast-paced games. They hijack your motor skills and starve the urge in under 60 seconds. It is a biological override.
+              </li>
+              <li>
+                <strong>The 30-Day Free Mind E-Book</strong>
+                The games save you today. This book will help you forever. Get the exact step-by-step protocol to reset your dopamine baseline and take your life back.
+              </li>
+            </ul>
+          </div>
+
+          <!-- STRIPE LINK HERE -->
+          <a href="https://buy.stripe.com/9B64gB9Zm10MdiVa2M8k800" class="stripe-btn" target="_blank">
+            DOWNLOAD 3 GAMES + E-BOOK
+          </a>
+        </div>
+      </div>
+
+      <div class="score-board">
+        <span id="scoreText">Score: 0</span>
+        <span id="hiScoreText">Goal: Survive 12s</span>
+      </div>
+    </div>
+    
+    <p class="game-instructions">Tap anywhere on the screen or press Space to jump.</p>
+    
+    <button id="close-modal">Close Game</button>
+  </div>
+
+  <script>
+    // ------------------------------------------------
+    // UI LOGIC & MODAL HANDLING
+    // ------------------------------------------------
+    const gameBtn = document.getElementById('game-btn');
+    const gameModal = document.getElementById('game-modal');
+    const closeModal = document.getElementById('close-modal');
+    const paywall = document.getElementById('paywall');
+    
+    let gameLoop; 
+    let isPaywallActive = false;
+
+    gameBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      gameModal.style.display = 'flex';
+      document.body.style.overflow = 'hidden'; 
+      resetGame();
+      gameLoop = requestAnimationFrame(updateGame);
+    });
+
+    closeModal.addEventListener('click', (e) => {
+      e.stopPropagation(); 
+      gameModal.style.display = 'none';
+      document.body.style.overflow = 'auto'; 
+      cancelAnimationFrame(gameLoop);
+    });
+
+    // Stops the paywall area from triggering a jump
+    paywall.addEventListener('pointerdown', (e) => {
+      e.stopPropagation();
+    });
+
+    // ------------------------------------------------
+    // RUNNER MINIGAME LOGIC
+    // ------------------------------------------------
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    let frames = 0;
+    let score = 0;
+    let gameSpeed = 6;
+    let obstacles = [];
+    
+    const player = {
+      x: 50,
+      y: 160,
+      w: 24,
+      h: 24,
+      dy: 0,
+      gravity: 0.65,
+      jumpPower: -11.5,
+      grounded: true,
+      
+      draw() {
+        ctx.fillStyle = '#00D9FF';
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = '#00D9FF';
+        ctx.fillRect(this.x, this.y, this.w, this.h);
+        ctx.shadowBlur = 0; 
+      },
+      
+      update() {
+        this.y += this.dy;
+        if (this.y + this.h < canvas.height) {
+          this.dy += this.gravity;
+          this.grounded = false;
+        } else {
+          this.dy = 0;
+          this.y = canvas.height - this.h;
+          this.grounded = true;
+        }
+        this.draw();
+      },
+      
+      jump() {
+        if (this.grounded && !isPaywallActive) {
+          this.dy = this.jumpPower;
+          this.grounded = false;
+        }
+      }
+    };
+
+    class Obstacle {
+      constructor() {
+        this.w = 20 + Math.random() * 20;
+        this.h = 25 + Math.random() * 40;
+        this.x = canvas.width;
+        this.y = canvas.height - this.h;
+      }
+      
+      draw() {
+        ctx.fillStyle = '#FF5A5F';
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = '#FF5A5F';
+        ctx.fillRect(this.x, this.y, this.w, this.h);
+        ctx.shadowBlur = 0;
+      }
+      
+      update() {
+        this.x -= gameSpeed;
+        this.draw();
+      }
+    }
+
+    function handleObstacles() {
+      if (frames % 70 === 0) {
+        obstacles.push(new Obstacle());
+      }
+      
+      for (let i = 0; i < obstacles.length; i++) {
+        let obs = obstacles[i];
+        obs.update();
+        
+        // AABB Collision
+        if (
+          player.x < obs.x + obs.w &&
+          player.x + player.w > obs.x &&
+          player.y < obs.y + obs.h &&
+          player.y + player.h > obs.y
+        ) {
+          // Soft reset on collision
+          obstacles = [];
+          score = Math.max(0, score - 15); 
+          return; 
+        }
+        
+        if (obs.x + obs.w < 0) {
+          obstacles.splice(i, 1);
+          i--;
+        }
+      }
+    }
+
+    function resetGame() {
+      player.y = canvas.height - player.h;
+      player.dy = 0;
+      obstacles = [];
+      score = 0;
+      frames = 0;
+      gameSpeed = 6;
+      isPaywallActive = false;
+      paywall.style.display = 'none';
+    }
+
+    function triggerPaywall() {
+      isPaywallActive = true;
+      paywall.style.display = 'flex';
+      cancelAnimationFrame(gameLoop);
+    }
+
+    function updateGame() {
+      if (gameModal.style.display === 'none' || isPaywallActive) return; 
+      
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      player.update();
+      handleObstacles();
+      
+      score += 0.1; // 60fps = +6 score per second. 12 seconds = 72 score.
+      frames++;
+      
+      document.getElementById('scoreText').innerText = 'Score: ' + Math.floor(score);
+      
+      // PAYWALL TRIGGER: Exactly 12 seconds (score 72)
+      if (score >= 72 && !isPaywallActive) {
+        triggerPaywall();
+        return;
+      }
+      
+      gameLoop = requestAnimationFrame(updateGame);
+    }
+
+    // ------------------------------------------------
+    // UNIVERSAL INPUT LOGIC
+    // ------------------------------------------------
+    window.addEventListener('keydown', (e) => {
+      if (gameModal.style.display === 'flex' && (e.code === 'Space' || e.code === 'ArrowUp')) {
+        e.preventDefault(); 
+        player.jump();
+      }
+    });
+
+    gameModal.addEventListener('pointerdown', (e) => {
+      if (e.target !== closeModal && !isPaywallActive) {
+        e.preventDefault(); 
+        player.jump();
+      }
+    });
+
+  </script>
+
+</body>
+</html>
