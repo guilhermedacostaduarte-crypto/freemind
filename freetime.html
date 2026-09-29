@@ -120,7 +120,7 @@
   .reader-header h3 { color: #FFFFFF; font-size: 1.4rem; text-transform: uppercase; }
   .page-indicator { color: #00D9FF; font-weight: bold; font-size: 1rem; }
 
-  /* Container da imagem com setas flutuantes estilo carrossel */
+  /* Container do carrossel responsivo */
   .reader-content {
     position: relative;
     min-height: 380px;
@@ -143,7 +143,7 @@
     object-fit: contain;
   }
 
-  /* Estilo das setas circulares flutuantes nas laterais */
+  /* Setas do Carrossel (Desktop padrão nas laterais centrais) */
   .carousel-arrow {
     position: absolute;
     top: 50%;
@@ -170,7 +170,7 @@
   .prev-arrow { left: 20px; }
   .next-arrow { right: 20px; }
 
-  /* Paywall inside Reader on Page 10 */
+  /* Paywall na Página 10 */
   #reader-paywall {
     display: none;
     text-align: center;
@@ -179,7 +179,6 @@
   #reader-paywall h3 { color: #FF5A5F; font-size: 1.8rem; margin-bottom: 10px; text-transform: uppercase; }
   #reader-paywall p { font-family: 'Segoe UI', sans-serif; color: #B0B8D4; margin-bottom: 25px; font-size: 1.1rem; }
 
-  /* Botão de revisão discreto */
   .reset-link-btn {
     background: transparent;
     border: 1px solid #7C86AC;
@@ -244,7 +243,7 @@
     position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center;
   }
 
-  /* CHECKPOINT MODAL (Aparece aos 30s) */
+  /* CHECKPOINT MODAL */
   #checkpoint-modal {
     display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(5, 8, 20, 0.96); backdrop-filter: blur(10px);
@@ -296,13 +295,27 @@
   }
   #math-ui { display: none; text-align: center; color: white; width: 100%; padding: 20px; }
 
+  /* RESPONSIVIDADE OTIMIZADA PARA IOS, ANDROID E TABLETS */
   @media (max-width: 768px) {
     .header { flex-direction: column; gap: 15px; }
     .action-btns { flex-direction: column; width: 100%; }
     .action-btns button { width: 100%; }
-    .carousel-arrow { width: 40px; height: 40px; font-size: 1.1rem; }
-    .prev-arrow { left: 10px; }
-    .next-arrow { right: 10px; }
+    
+    /* Ajuste crítico para celulares: move as setas para os cantos inferiores da imagem, evitando cobrir o texto */
+    .carousel-arrow {
+      width: 42px;
+      height: 42px;
+      font-size: 1.1rem;
+      top: auto;
+      bottom: 15px;
+      transform: none;
+      background: rgba(255, 255, 255, 0.95);
+    }
+    .prev-arrow { left: 15px; }
+    .next-arrow { right: 15px; }
+    
+    .reader-card { padding: 20px 15px; }
+    .reader-content { padding: 10px; min-height: 280px; padding-bottom: 65px; }
   }
 </style>
 </head>
@@ -334,7 +347,7 @@
           <div class="page-indicator" id="page-indicator">Page 1 of 10</div>
         </div>
         
-        <!-- Container do carrossel com as setas flutuantes nas laterais -->
+        <!-- Container do carrossel com setas responsivas -->
         <div class="reader-content">
           <button class="carousel-arrow prev-arrow" id="prev-btn" onclick="changePage(-1)">&#10094;</button>
           <img id="reader-img" src="" alt="Ebook Page">
@@ -342,7 +355,7 @@
         </div>
       </div>
 
-      <!-- Paywall na Página 10 (Aparece ao avançar após a última página) -->
+      <!-- Paywall na Página 10 -->
       <div id="reader-paywall">
         <h3>Preview Completed</h3>
         <p>You have seen how the system works. Ready to unlock the remaining days, full chapters, and lifetime emergency tools?</p>
@@ -400,7 +413,7 @@
         <div style="display:flex; gap:15px; justify-content:center; flex-wrap: wrap;" id="math-answers"></div>
       </div>
 
-      <!-- CHECKPOINT INTERATIVO (Aparece aos 30s) -->
+      <!-- CHECKPOINT INTERATIVO -->
       <div id="checkpoint-modal">
         <h2>Are you following so far?</h2>
         <p>Notice how your focus just shifted away from the urge? Action kills cravings instantly. Want full access to all emergency tools and the 30-day system right now?</p>
@@ -412,7 +425,7 @@
         </a>
       </div>
 
-      <!-- POST-GAME MODAL (Final de 60s) -->
+      <!-- POST-GAME MODAL -->
       <div id="post-game-modal">
         <h2>Override Complete</h2>
         <p>Your mindset has shifted. Ready to unlock the full protocol and permanent tools?</p>
@@ -461,7 +474,7 @@
       }, 600);
     }
 
-    // --- 2. RENDERIZADOR DO CARROSSEL COM SETAS FLUTUANTES ---
+    // --- 2. RENDERIZADOR DO CARROSSEL ---
     function renderPage() {
       const readerImg = document.getElementById('reader-img');
       const readerTitle = document.getElementById('reader-title');
@@ -489,7 +502,6 @@
     function changePage(direction) {
       currentPage += direction;
       if (currentPage < 0) currentPage = 0;
-      // Permite avançar além do último índice para ativar o paywall
       if (currentPage > ebookProtocolo.imagens.length) {
         currentPage = ebookProtocolo.imagens.length;
       }
