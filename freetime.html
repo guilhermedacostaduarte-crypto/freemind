@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Member Area — Free Mind Protocol</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
+  
+  body {
+    background: #050814;
+    color: #E8EAF6;
+    overflow-x: hidden;
+  }
+
+  /* -----------------------------------
+     COMMITMENT SCREEN
+     ----------------------------------- */
+  #commitment-screen {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100vh;
+    background: #0A0E27;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    padding: 20px;
+    transition: opacity 0.6s ease;
+  }
+
+  .commitment-box {
+    background: #131A3D;
+    padding: 50px 40px;
+    border-radius: 12px;
+    border: 1px solid #2A3158;
+    border-top: 4px solid #FF5A5F;
+    width: 100%;
+    max-width: 550px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
+
+  .commitment-box h2 { 
+    color: #FF5A5F; 
+    margin-bottom: 20px; 
+    text-transform: uppercase; 
+    letter-spacing: 2px;
+    font-size: clamp(1.4rem, 4vw, 1.8rem);
+  }
+  
+  .commitment-box p { 
+    color: #B0B8D4; 
+    margin-bottom: 20px; 
+    font-size: 1.1rem;
+    line-height: 1.6;
+    text-align: left;
+  }
+
+  .commitment-box p strong { color: #E8EAF6; }
+
+  .start-btn {
+    width: 100%; 
+    padding: 18px;
+    margin-top: 20px;
+    background: linear-gradient(135deg, #00D9FF 0%, #0077FF 100%);
+    color: #0A0E27; 
+    border: none; 
+    border-radius: 6px;
+    font-size: 1.1rem; 
+    font-weight: 800; 
+    cursor: pointer;
+    text-transform: uppercase; 
+    letter-spacing: 1px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .start-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 217, 255, 0.4);
+  }
+
+  /* -----------------------------------
+     DASHBOARD (Main Hub)
+     ----------------------------------- */
+  #dashboard {
+    display: none; 
+    padding: 40px 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; border-bottom: 1px solid #2A3158; padding-bottom: 20px;}
+  .header h1 { font-size: 1.5rem; color: #FFFFFF; text-transform: uppercase; letter-spacing: 2px;}
+  .header h1 span { color: #00D9FF; }
+  .user-badge { background: rgba(0,217,255,0.1); color: #00D9FF; padding: 8px 16px; border-radius: 50px; font-size: 0.85rem; border: 1px solid rgba(0,217,255,0.3); text-transform: uppercase; font-weight: bold;}
+
+  .section-title { font-size: 1.2rem; color: #7C86AC; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 20px;}
+
+  /* Ebook Image Carousel Reader Card */
+  .reader-card {
+    background: #131A3D;
+    border: 1px solid #2A3158;
+    border-top: 4px solid #00D9FF;
+    border-radius: 12px;
+    padding: 40px;
+    margin-bottom: 60px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+
+  .reader-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #2A3158;
+    padding-bottom: 15px;
+  }
+
+  .reader-header h3 { color: #FFFFFF; font-size: 1.4rem; text-transform: uppercase; }
+  .page-indicator { color: #00D9FF; font-weight: bold; font-size: 1rem; }
+
+  .reader-content {
+    min-height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    background: rgba(10, 14, 39, 0.5);
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid #2A3158;
+  }
+
+  .reader-content img {
+    max-width: 100%;
+    height: auto;
+    max-height: 600px;
+    border-radius: 6px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+    object-fit: contain;
+  }
+
+  .reader-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #2A3158;
+    padding-top: 20px;
+  }
+
+  .reader-btn {
+    background: transparent;
+    color: #00D9FF;
+    border: 1px solid #00D9FF;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: 0.2s;
+  }
+  .reader-btn:hover { background: rgba(0, 217, 255, 0.1); color: white; }
+  .reader-btn:disabled { opacity: 0.3; cursor: not-allowed; border-color: #7C86AC; color: #7C86AC; }
+
+  /* Paywall inside Reader on Page 10 */
+  #reader-paywall {
+    display: none;
+    text-align: center;
+    padding: 30px 20px;
+  }
+  #reader-paywall h3 { color: #FF5A5F; font-size: 1.8rem; margin-bottom: 10px; text-transform: uppercase; }
+  #reader-paywall p { font-family: 'Segoe UI', sans-serif; color: #B0B8D4; margin-bottom: 25px; font-size: 1.1rem; }
+
+  /* Games Grid */
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+  }
+
+  .game-card {
+    background: #131A3D; border: 1px solid #2A3158; border-radius: 12px;
+    padding: 40px 30px; text-align: center; cursor: pointer;
+    transition: 0.3s; position: relative; overflow: hidden;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .game-card:hover { border-color: #FF5A5F; transform: translateY(-5px); box-shadow: 0 15px 35px rgba(255, 90, 95, 0.2);}
+  
+  .game-icon { font-size: 4rem; margin-bottom: 20px; }
+  .game-card h3 { color: #E8EAF6; margin-bottom: 15px; font-size: 1.8rem;}
+  .game-card p { color: #B0B8D4; font-size: 1.15rem; line-height: 1.6; margin-bottom: 25px; }
+
+  .play-badge {
+    margin-top: auto; display: inline-block; background: rgba(255, 90, 95, 0.1);
+    color: #FF5A5F; padding: 10px 20px; border-radius: 50px; font-weight: bold; font-size: 1.05rem; border: 1px solid rgba(255, 90, 95, 0.3); text-transform: uppercase;
+  }
+
+  /* -----------------------------------
+     ACTIVE GAME ARENA
+     ----------------------------------- */
+  #game-arena {
+    display: none; 
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    background: #050814; z-index: 5000;
+    flex-direction: column; align-items: center; padding: 20px;
+  }
+
+  .arena-header {
+    width: 100%; max-width: 800px; display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .back-btn { background: transparent; color: #7C86AC; border: 1px solid #2A3158; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-size: 1rem; font-weight: bold;}
+  .back-btn:hover { background: #131A3D; color: white;}
+  
+  .timer-box { display: none !important; }
+  .protocol-notice { color: #7C86AC; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+
+  #active-game-container {
+    width: 100%; max-width: 800px; height: 65vh;
+    background: #0A0E27; border: 2px solid #2A3158; border-radius: 12px;
+    position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center;
+  }
+
+  /* CHECKPOINT MODAL (Aparece aos 30s) */
+  #checkpoint-modal {
+    display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(5, 8, 20, 0.96); backdrop-filter: blur(10px);
+    flex-direction: column; justify-content: center; align-items: center; z-index: 15;
+    padding: 20px; text-align: center;
+  }
+  #checkpoint-modal h2 { color: #00D9FF; font-size: 2.2rem; margin-bottom: 15px; text-transform: uppercase; }
+  #checkpoint-modal p { color: #B0B8D4; font-size: 1.15rem; margin-bottom: 30px; max-width: 500px; line-height: 1.6; }
+
+  /* POST-GAME MODAL */
+  #post-game-modal {
+    display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(5, 8, 20, 0.95); backdrop-filter: blur(10px);
+    flex-direction: column; justify-content: center; align-items: center; z-index: 10;
+    padding: 20px; text-align: center;
+  }
+  #post-game-modal h2 { color: #00D9FF; font-size: 2.5rem; margin-bottom: 15px; text-transform: uppercase; }
+  #post-game-modal p { color: #B0B8D4; font-size: 1.15rem; margin-bottom: 30px; max-width: 500px; line-height: 1.5; }
+  
+  .action-btns { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; width: 100%; max-width: 500px; }
+  
+  .btn-level-up {
+    background: #FF5A5F; color: white; border: none; padding: 14px 28px;
+    border-radius: 50px; font-weight: 800; font-size: 1rem; cursor: pointer; text-transform: uppercase;
+    box-shadow: 0 5px 20px rgba(255, 90, 95, 0.4); transition: 0.3s; flex: 1; min-width: 200px;
+  }
+  .btn-level-up:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(255, 90, 95, 0.6); }
+  
+  .btn-im-good {
+    background: transparent; color: #00D9FF; border: 2px solid #00D9FF; padding: 14px 28px;
+    border-radius: 50px; font-weight: 800; font-size: 1rem; cursor: pointer; text-transform: uppercase;
+    transition: 0.3s; flex: 1; min-width: 200px;
+  }
+  .btn-im-good:hover { background: rgba(0, 217, 255, 0.1); color: white; }
+
+  .stripe-checkout-btn {
+    display: block; width: 100%; max-width: 420px; background: linear-gradient(135deg, #00D9FF 0%, #0077FF 100%);
+    color: #0A0E27; text-decoration: none; font-weight: 800; padding: 16px 24px;
+    border-radius: 8px; font-size: 1.1rem; text-transform: uppercase; text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 217, 255, 0.4); transition: 0.2s; margin-top: 15px;
+    margin-left: auto; margin-right: auto;
+  }
+  .stripe-checkout-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0, 217, 255, 0.6); }
+
+  canvas { width: 100%; height: 100%; display: none; }
+  #smasher-target {
+    width: 60px; height: 60px; background: #FF5A5F; border-radius: 50px;
+    position: absolute; cursor: pointer; display: none; box-shadow: 0 0 25px #FF5A5F;
+  }
+  #math-ui { display: none; text-align: center; color: white; width: 100%; padding: 20px; }
+
+  @media (max-width: 768px) {
+    .header { flex-direction: column; gap: 15px; }
+    .action-btns { flex-direction: column; width: 100%; }
+    .action-btns button { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- 1. COMMITMENT SCREEN -->
+  <div id="commitment-screen">
+    <div class="commitment-box">
+      <h2>The 7-Minute Mindset Shift</h2>
+      <p>You made a commitment to fix your focus and reclaim your time. Dedicating just <strong>7 focused minutes</strong> to this system will aggregate value, completely reshape how you think, and help you find new methods to win.</p>
+      
+      <button class="start-btn" onclick="enterDashboard()">I'm Ready. Start Protocol.</button>
+    </div>
+  </div>
+
+  <!-- 2. DASHBOARD -->
+  <div id="dashboard">
+    <div class="header">
+      <h1>Free Mind <span>Protocol</span></h1>
+      <div class="user-badge">Preview Access</div>
+    </div>
+
+    <!-- Ebook Image Carousel Reader (Estrutura Agrogiro style) -->
+    <h3 class="section-title">Phase 1: The Core Protocol</h3>
+    <div class="reader-card">
+      <div id="reader-main-view">
+        <div class="reader-header">
+          <h3 id="reader-title">The Relentless Mindset</h3>
+          <div class="page-indicator" id="page-indicator">Page 1 of 10</div>
+        </div>
+        <div class="reader-content">
+          <img id="reader-img" src="" alt="Ebook Page">
+        </div>
+        <div class="reader-controls">
+          <button class="reader-btn" id="prev-btn" onclick="changePage(-1)" disabled>← Previous</button>
+          <button class="reader-btn" id="next-btn" onclick="changePage(1)">Next Page →</button>
+        </div>
+      </div>
+
+      <!-- Paywall na Página 10 -->
+      <div id="reader-paywall">
+        <h3>Preview Completed (10 / 10 Pages)</h3>
+        <p>You have seen how the system works. Ready to unlock the remaining days, full chapters, and lifetime emergency tools?</p>
+        <a href="https://buy.stripe.com/9B64gB9Zm10MdiVa2M8k800" class="stripe-checkout-btn" target="_blank">
+          Unlock Full Protocol ($19.90)
+        </a>
+        <br>
+        <button class="reader-btn" onclick="resetReader()" style="margin-top: 15px; border-color: #7C86AC; color: #7C86AC;">Review Preview Again</button>
+      </div>
+    </div>
+
+    <!-- Games Section -->
+    <h3 class="section-title">Phase 2: Active Pattern Interrupts</h3>
+    <div class="games-grid">
+      
+      <div class="game-card" onclick="openGame('runner')">
+        <div class="game-icon">🏃</div>
+        <h3>The Runner</h3>
+        <p>Jump to survive. This game forces your brain to redirect energy from anxiety to motor-skills, killing physical cravings instantly.</p>
+        <span class="play-badge">Active Override</span>
+      </div>
+
+      <div class="game-card" onclick="openGame('smasher')">
+        <div class="game-icon">🎯</div>
+        <h3>Urge Smasher</h3>
+        <p>Tap the red targets before they vanish. This requires intense visual focus, leaving zero mental bandwidth for toxic urges.</p>
+        <span class="play-badge">Active Override</span>
+      </div>
+
+      <div class="game-card" onclick="openGame('math')">
+        <div class="game-icon">🔢</div>
+        <h3>Logic Lock</h3>
+        <p>Solve rapid math equations under pressure. This forces your prefrontal cortex (the logic center) to wake up and take control.</p>
+        <span class="play-badge">Active Override</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 3. ACTIVE GAME ARENA -->
+  <div id="game-arena">
+    <div class="arena-header">
+      <button class="back-btn" onclick="exitGame()">← Back to Hub</button>
+      <div class="protocol-notice">Pattern Interrupt Active</div>
+      <div class="timer-box" id="timer-display">01:00</div>
+    </div>
+
+    <div id="active-game-container">
+      
+      <canvas id="game-canvas" width="800" height="400"></canvas>
+      <div id="smasher-target"></div>
+
+      <div id="math-ui">
+        <h2 id="math-question" style="font-size: clamp(3rem, 8vw, 4.5rem); margin-bottom: 40px; font-weight: 800;">2 + 2 = ?</h2>
+        <div style="display:flex; gap:15px; justify-content:center; flex-wrap: wrap;" id="math-answers"></div>
+      </div>
+
+      <!-- CHECKPOINT INTERATIVO (Aparece aos 30s) -->
+      <div id="checkpoint-modal">
+        <h2>Are you following so far?</h2>
+        <p>Notice how your focus just shifted away from the urge? Action kills cravings instantly. Want full access to all emergency tools and the 30-day system right now?</p>
+        <div class="action-btns">
+          <button class="btn-im-good" onclick="resumeFromCheckpoint()">Yes, keep playing</button>
+        </div>
+        <a href="https://buy.stripe.com/9B64gB9Zm10MdiVa2M8k800" class="stripe-checkout-btn" target="_blank">
+          Unlock Full System ($19.90)
+        </a>
+      </div>
+
+      <!-- POST-GAME MODAL (Final de 60s) -->
+      <div id="post-game-modal">
+        <h2>Override Complete</h2>
+        <p>Your mindset has shifted. Ready to unlock the full protocol and permanent tools?</p>
+        <div class="action-btns">
+          <button class="btn-im-good" onclick="exitGame()">Back to Hub</button>
+          <button class="btn-level-up" onclick="levelUpGame()">Push Deeper (Harder)</button>
+        </div>
+        <a href="https://buy.stripe.com/9B64gB9Zm10MdiVa2M8k800" class="stripe-checkout-btn" target="_blank">
+          Get Lifetime Access ($19.90)
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // --- 1. CONFIGURAÇÃO ESTILO AGROGIRO (Adicione os caminhos das imagens manualmente aqui) ---
+    const ebookProtocolo = {
+      nome: "The Relentless Mindset - Preview",
+      paginasTotais: 10,
+      imagens: [
+        "imagens/Capanova.png.png.",
+        "imagens/sumarryy.png.png.",
+        "imagens/cap1.png.png.",
+        "imagens/cap2.png.png.",
+        "imagens/cap3.png.png.",
+        "imagens/cap4.png.png.",
+        "imagens/cap6.png.png.",
+        "imagens/cap7.png.png.",
+        "imagens/cap8.png.png.",
+        "imagens/cap9.png.png."
+      ]
+    };
+
+    let currentPage = 0;
+
+    function enterDashboard() {
+      const commitmentScreen = document.getElementById('commitment-screen');
+      commitmentScreen.style.opacity = '0';
+      setTimeout(() => {
+        commitmentScreen.style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        window.scrollTo(0,0);
+        renderPage();
+      }, 600);
+    }
+
+    // --- 2. RENDERIZADOR DO CARROSSEL DE IMAGENS ---
+    function renderPage() {
+      const readerImg = document.getElementById('reader-img');
+      const readerTitle = document.getElementById('reader-title');
+      const indicatorDiv = document.getElementById('page-indicator');
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      const mainView = document.getElementById('reader-main-view');
+      const paywallView = document.getElementById('reader-paywall');
+
+      if (currentPage < ebookProtocolo.imagens.length) {
+        mainView.style.display = 'block';
+        paywallView.style.display = 'none';
+        
+        readerImg.src = ebookProtocolo.imagens[currentPage];
+        readerTitle.innerText = `${ebookProtocolo.nome} (Page ${currentPage + 1})`;
+        indicatorDiv.innerText = `Page ${currentPage + 1} of ${ebookProtocolo.imagens.length}`;
+
+        prevBtn.disabled = currentPage === 0;
+        nextBtn.innerText = currentPage === ebookProtocolo.imagens.length - 1 ? "Finish Preview →" : "Next Page →";
+      } else {
+        mainView.style.display = 'none';
+        paywallView.style.display = 'block';
+      }
+    }
+
+    function changePage(direction) {
+      currentPage += direction;
+      if (currentPage < 0) currentPage = 0;
+      renderPage();
+    }
+
+    function resetReader() {
+      currentPage = 0;
+      renderPage();
+    }
+
+    // --- 3. GLOBAL GAME ENGINE & CHECKPOINT LOGIC ---
+    let activeGame = null;
+    let timeRemaining = 60;
+    let timerInterval = null;
+    let gameDifficultyMultiplier = 1;
+    let checkpointTriggered = false;
+
+    const gameArena = document.getElementById('game-arena');
+    const dashboard = document.getElementById('dashboard');
+    const timerDisplay = document.getElementById('timer-display');
+    const checkpointModal = document.getElementById('checkpoint-modal');
+    const postGameModal = document.getElementById('post-game-modal');
+    const canvas = document.getElementById('game-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function openGame(gameId) {
+      dashboard.style.display = 'none';
+      gameArena.style.display = 'flex';
+      postGameModal.style.display = 'none';
+      checkpointModal.style.display = 'none';
+      activeGame = gameId;
+      gameDifficultyMultiplier = 1;
+      checkpointTriggered = false;
+      startGameTimer();
+      initGame(gameId);
+    }
+
+    function exitGame() {
+      stopCurrentGame();
+      clearInterval(timerInterval);
+      gameArena.style.display = 'none';
+      dashboard.style.display = 'block';
+    }
+
+    function startGameTimer() {
+      timeRemaining = 60;
+      checkpointTriggered = false;
+      updateTimerUI();
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timeRemaining--;
+        updateTimerUI();
+
+        if (timeRemaining === 30 && !checkpointTriggered) {
+          checkpointTriggered = true;
+          triggerCheckpointModal();
+        }
+
+        if (timeRemaining <= 0) {
+          clearInterval(timerInterval);
+          triggerPostGameModal();
+        }
+      }, 1000);
+    }
+
+    function triggerCheckpointModal() {
+      stopCurrentGame();
+      checkpointModal.style.display = 'flex';
+    }
+
+    function resumeFromCheckpoint() {
+      checkpointModal.style.display = 'none';
+      initGame(activeGame);
+    }
+
+    function updateTimerUI() {
+      let secs = timeRemaining.toString().padStart(2, '0');
+      timerDisplay.innerText = `00:${secs}`;
+    }
+
+    function triggerPostGameModal() {
+      stopCurrentGame(); 
+      postGameModal.style.display = 'flex';
+    }
+
+    function levelUpGame() {
+      postGameModal.style.display = 'none';
+      gameDifficultyMultiplier += 0.5; 
+      startGameTimer();
+      initGame(activeGame);
+    }
+
+    // --- 4. GAME INITIALIZERS ---
+    let animationFrameId = null;
+    let smasherInterval = null;
+
+    function stopCurrentGame() {
+      cancelAnimationFrame(animationFrameId);
+      clearInterval(smasherInterval);
+      canvas.style.display = 'none';
+      document.getElementById('smasher-target').style.display = 'none';
+      document.getElementById('math-ui').style.display = 'none';
+    }
+
+    function initGame(id) {
+      stopCurrentGame();
+      if(id === 'runner') startRunner();
+      if(id === 'smasher') startSmasher();
+      if(id === 'math') startMath();
+    }
+
+    // --- MINI-GAME 1: THE RUNNER ---
+    let runnerPlayer, obstacles, gameSpeed;
+    function startRunner() {
+      canvas.style.display = 'block';
+      gameSpeed = 5 * gameDifficultyMultiplier;
+      obstacles = [];
+      runnerPlayer = { x: 50, y: 300, w: 30, h: 30, dy: 0, grav: 0.7, jump: -13, grounded: true };
+      
+      function runLoop() {
+        if(timeRemaining <= 0 || checkpointModal.style.display === 'flex') return;
+        ctx.clearRect(0,0, canvas.width, canvas.height);
+        
+        runnerPlayer.y += runnerPlayer.dy;
+        if(runnerPlayer.y + runnerPlayer.h < canvas.height - 20) {
+          runnerPlayer.dy += runnerPlayer.grav;
+          runnerPlayer.grounded = false;
+        } else {
+          runnerPlayer.dy = 0; 
+          runnerPlayer.y = canvas.height - 20 - runnerPlayer.h; 
+          runnerPlayer.grounded = true;
+        }
+        
+        ctx.fillStyle = '#00D9FF'; 
+        ctx.shadowBlur = 15; ctx.shadowColor = '#00D9FF';
+        ctx.fillRect(runnerPlayer.x, runnerPlayer.y, runnerPlayer.w, runnerPlayer.h);
+        ctx.shadowBlur = 0;
+        
+        let safeDistance = 250 / gameDifficultyMultiplier;
+        if (obstacles.length === 0 || (canvas.width - obstacles[obstacles.length - 1].x > safeDistance + Math.random() * 100)) {
+          if(Math.random() < 0.03) {
+            let obsH = 35 + Math.random() * 25;
+            obstacles.push({x: canvas.width, y: canvas.height - 20 - obsH, w: 25, h: obsH});
+          }
+        }
+        
+        for(let i=0; i<obstacles.length; i++) {
+          let obs = obstacles[i];
+          obs.x -= gameSpeed;
+          ctx.fillStyle = '#FF5A5F'; 
+          ctx.fillRect(obs.x, obs.y, obs.w, obs.h);
+          
+          if(runnerPlayer.x < obs.x+obs.w && runnerPlayer.x+runnerPlayer.w > obs.x && runnerPlayer.y < obs.y+obs.h && runnerPlayer.y+runnerPlayer.h > obs.y) {
+            obstacles = []; 
+          }
+        }
+        animationFrameId = requestAnimationFrame(runLoop);
+      }
+      runLoop();
+    }
+    
+    window.addEventListener('keydown', (e) => {
+      if(activeGame === 'runner' && (e.code === 'Space' || e.code === 'ArrowUp') && runnerPlayer.grounded && timeRemaining > 0 && checkpointModal.style.display !== 'flex') {
+        runnerPlayer.dy = runnerPlayer.jump; runnerPlayer.grounded = false;
+      }
+    });
+    canvas.addEventListener('pointerdown', (e) => {
+      if(activeGame === 'runner' && runnerPlayer.grounded && timeRemaining > 0 && checkpointModal.style.display !== 'flex') {
+        e.preventDefault();
+        runnerPlayer.dy = runnerPlayer.jump; runnerPlayer.grounded = false;
+      }
+    });
+
+    // --- MINI-GAME 2: URGE SMASHER ---
+    function startSmasher() {
+      const target = document.getElementById('smasher-target');
+      target.style.display = 'block';
+      const container = document.getElementById('active-game-container');
+      
+      function moveTarget() {
+        if(timeRemaining <= 0 || checkpointModal.style.display === 'flex') return;
+        let maxW = container.clientWidth - 80;
+        let maxH = container.clientHeight - 80;
+        target.style.left = Math.floor(Math.random() * maxW) + 10 + 'px';
+        target.style.top = Math.floor(Math.random() * maxH) + 10 + 'px';
+        
+        let size = Math.max(40, 70 - (gameDifficultyMultiplier * 5));
+        target.style.width = size + 'px'; 
+        target.style.height = size + 'px';
+      }
+      
+      moveTarget();
+      target.onpointerdown = moveTarget;
+      
+      let speedMs = Math.max(900, 1800 - (gameDifficultyMultiplier * 200));
+      smasherInterval = setInterval(() => {
+        if (checkpointModal.style.display !== 'flex') moveTarget();
+      }, speedMs);
+    }
+
+    // --- MINI-GAME 3: LOGIC LOCK (MATH) ---
+    function startMath() {
+      const ui = document.getElementById('math-ui');
+      ui.style.display = 'block';
+      const q = document.getElementById('math-question');
+      const ansDiv = document.getElementById('math-answers');
+      
+      function generateQuestion() {
+        if(timeRemaining <= 0 || checkpointModal.style.display === 'flex') return;
+        ansDiv.innerHTML = '';
+        
+        let maxNum = 15 * gameDifficultyMultiplier;
+        let num1 = Math.floor(Math.random() * maxNum) + 1;
+        let num2 = Math.floor(Math.random() * maxNum) + 1;
+        
+        let operator = Math.random() > 0.5 ? '+' : '-';
+        if(operator === '-' && num1 < num2) { let temp = num1; num1 = num2; num2 = temp; }
+        
+        let correct = operator === '+' ? num1 + num2 : num1 - num2;
+        q.innerText = `${num1} ${operator} ${num2} = ?`;
+        
+        let answers = [correct, correct + 2, correct - 1, correct + 5].sort(() => Math.random() - 0.5);
+        
+        answers.forEach(ans => {
+          let btn = document.createElement('button');
+          btn.innerText = ans;
+          btn.style.padding = '20px 40px'; 
+          btn.style.fontSize = '1.8rem'; 
+          btn.style.fontWeight = 'bold';
+          btn.style.cursor = 'pointer';
+          btn.style.background = '#131A3D'; 
+          btn.style.color = '#00D9FF'; 
+          btn.style.border = '2px solid #00D9FF'; 
+          btn.style.borderRadius = '12px';
+          btn.style.transition = '0.2s';
+          
+          btn.onpointerdown = () => {
+            if(ans === correct) {
+              generateQuestion(); 
+            } else { 
+              btn.style.background = '#FF5A5F'; 
+              btn.style.color = 'white'; 
+              btn.style.borderColor = '#FF5A5F'; 
+            }
+          };
+          ansDiv.appendChild(btn);
+        });
+      }
+      generateQuestion();
+    }
+
+  </script>
+</body>
+</html>
